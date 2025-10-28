@@ -180,11 +180,11 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 
 ### Deployment Workflow
 
-**⚠️⚠️⚠️ CRITICAL RULE - READ THIS EVERY TIME ⚠️⚠️⚠️**
+**CRITICAL RULE - READ THIS EVERY TIME:**
 
-🚨 **STOP! NEVER RUN `git push` OR ANY DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
+**NEVER RUN `git push` OR ANY DEPLOYMENT COMMANDS WITHOUT ASKING FIRST**
 
-🛑 **DO NOT PUSH TO GIT WITHOUT EXPLICIT USER APPROVAL** 🛑
+**DO NOT PUSH TO GIT WITHOUT EXPLICIT USER APPROVAL**
 
 **The Rule:**
 After completing ANY code changes, you MUST:
@@ -205,7 +205,7 @@ After completing ANY code changes, you MUST:
 
 **Deployment Method:**
 
-🚫 **CRITICAL: DO NOT USE THE `vercel` COMMAND TO DEPLOY** 🚫
+**CRITICAL: DO NOT USE THE `vercel` COMMAND TO DEPLOY**
 
 This project uses **GitHub integration** - Vercel automatically deploys when you push to GitHub.
 
@@ -216,14 +216,14 @@ git push
 
 **That's it. Just `git push`. Vercel will automatically deploy. You are DONE. Do NOT run any other commands.**
 
-**NEVER EVER RUN THESE COMMANDS:**
-- ❌ `vercel`
-- ❌ `vercel --prod`
-- ❌ `vercel --prod --yes`
-- ❌ `vercel deploy`
-- ❌ `vercel deploy --prod`
-- ❌ `git push && vercel --prod --yes`
-- ❌ **ANY command containing the word "vercel"**
+**NEVER RUN THESE COMMANDS:**
+- `vercel`
+- `vercel --prod`
+- `vercel --prod --yes`
+- `vercel deploy`
+- `vercel deploy --prod`
+- `git push && vercel --prod --yes`
+- ANY command containing the word "vercel"
 
 **Why you must NOT run `vercel` commands:**
 - GitHub integration AUTOMATICALLY triggers Vercel deployment when you push
