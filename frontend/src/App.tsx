@@ -2,6 +2,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import { LoginPage } from './components/LoginPage';
 import { Dashboard } from './components/Dashboard';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function AppContent() {
   const { authenticated, loading } = useAuth();
@@ -25,6 +26,7 @@ function App() {
     <DarkModeProvider>
       <AuthProvider>
         <AppContent />
+        <SpeedInsights />
       </AuthProvider>
     </DarkModeProvider>
   );
