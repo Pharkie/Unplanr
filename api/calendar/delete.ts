@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getTokenFromCookie, verifyToken } from '../lib/jwt';
-import { calendarService } from '../lib/calendarService';
+import { getTokenFromCookie, verifyToken } from '../lib/jwt.js';
+import { calendarService } from '../lib/calendarService.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {

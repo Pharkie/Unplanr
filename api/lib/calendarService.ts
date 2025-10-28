@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { googleAuthService } from './googleAuth';
+import { googleAuthService } from './googleAuth.js';
 
 const MAX_EVENTS_PER_REQUEST = 100;
 

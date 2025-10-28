@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { googleAuthService } from '../lib/googleAuth';
-import { calendarService } from '../lib/calendarService';
-import { createToken } from '../lib/jwt';
+import { googleAuthService } from '../lib/googleAuth.js';
+import { calendarService } from '../lib/calendarService.js';
+import { createToken } from '../lib/jwt.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
