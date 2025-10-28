@@ -8,11 +8,17 @@ Google Calendar's native interface makes it tedious to delete multiple events - 
 
 ## Features
 
-- Visual calendar interface for easy event selection
-- Bulk delete up to 100 events at once
-- Secure Google OAuth authentication
-- Clean, modern UI
-- Free hosting on Vercel
+- **Bulk Event Deletion** - Select and delete up to 100 events at once
+- **Multi-Calendar Support** - Manage events across all your Google Calendars
+- **Date Range Filtering** - Filter events by date with presets (7/14/30 days) or custom ranges
+- **Instant Search** - Real-time search with highlighting (accent-insensitive)
+- **Smart Date Picker** - Auto-sets end date to start + 2 weeks for quick filtering
+- **Session Management** - Handles token expiration gracefully with friendly messaging
+- **Privacy-Focused Analytics** - Umami analytics (no cookies, GDPR compliant)
+- **Dark Mode** - Automatic dark/light theme following system preference
+- **Mobile-First Design** - Responsive interface with sticky controls
+- **Secure Google OAuth** - Minimal permissions (calendar.events only)
+- **Free & Open Source** - Hosted on Vercel with transparent codebase
 
 ## Tech Stack
 

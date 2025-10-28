@@ -5,12 +5,20 @@ This document outlines future feature ideas and enhancements for Unplanr. Featur
 ## Recently Completed Features ✅
 
 - ✅ **Google OAuth Authentication** - Secure login with minimal permissions
-- ✅ **Calendar Selection** - View and manage events from multiple calendars
+- ✅ **Calendar Selection** - View and manage events from multiple calendars (alphabetically sorted)
 - ✅ **Date Range Filtering** - Filter events by date range with presets and custom dates
-- ✅ **Search & Filter** - Real-time search with highlighting in titles and descriptions
+- ✅ **Search & Filter** - Real-time search with highlighting in titles, descriptions, and locations
+- ✅ **Accent-Insensitive Search** - "ces" matches "César", "cafe" matches "Café"
+- ✅ **Frontend-Only Search** - Instant filtering, no backend conflicts
+- ✅ **Smart Date Picker** - Auto-sets end date to start + 2 weeks when changing start date
 - ✅ **Bulk Event Deletion** - Delete up to 100 events at once
 - ✅ **Dark Mode** - Automatic dark/light theme following system preference
 - ✅ **Manual Refresh** - Refresh button to reload calendar feed after external changes
+- ✅ **Session Management** - Graceful token expiration handling with user-friendly messages
+- ✅ **Privacy Analytics** - Umami analytics integration (no cookies, GDPR compliant)
+- ✅ **SEO Optimization** - Meta tags, Open Graph, Twitter Cards, JSON-LD, sitemap
+- ✅ **Mobile-First Design** - Responsive sticky controls for mobile and desktop
+- ✅ **Select All Checkbox** - Indeterminate state support for partial selections
 
 ---
 
@@ -232,7 +240,8 @@ Remember: Unplanr values **simplicity over features**. Every feature should solv
 
 ## Version History
 
-- **v0.2.0** (Current) - Date range filtering, search/filter, calendar selection
+- **v0.3.0** (Current) - Accent-insensitive search, smart date picker, session management, analytics, SEO, mobile improvements
+- **v0.2.0** - Date range filtering, search/filter, calendar selection, dark mode
 - **v0.1.0** - Initial release with basic OAuth and bulk deletion
 
 ---
