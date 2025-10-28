@@ -1,6 +1,8 @@
 import { google } from 'googleapis';
 
-const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+// Using calendar.events (not calendar) for minimal permissions
+// This only allows viewing/editing events, not calendar settings
+const SCOPES = ['https://www.googleapis.com/auth/calendar.events'];
 
 export class GoogleAuthService {
   private oauth2Client;
