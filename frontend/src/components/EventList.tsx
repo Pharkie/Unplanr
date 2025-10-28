@@ -12,9 +12,9 @@ interface EventListProps {
 }
 
 export function EventList({ events, selectedIds, onToggle, loading, searchQuery = '' }: EventListProps) {
-  // Sort events to prioritize title matches (only when query is 3+ characters)
+  // Sort events to prioritize title matches
   const sortedEvents = useMemo(() => {
-    if (!searchQuery || searchQuery.length < 3) return events;
+    if (!searchQuery) return events;
 
     return [...events].sort((a, b) => {
       const aInTitle = containsQuery(a.summary, searchQuery);
@@ -90,7 +90,7 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
             />
             <div className="flex-1 min-w-0">
               <h3 className="text-base font-semibold text-slate-900 dark:text-white truncate">
-                {searchQuery && searchQuery.length >= 3 ? highlightText(event.summary || '(No title)', searchQuery) : (event.summary || '(No title)')}
+                {searchQuery ? highlightText(event.summary || '(No title)', searchQuery) : (event.summary || '(No title)')}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +100,7 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
               </p>
               {event.description && (
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
-                  {searchQuery && searchQuery.length >= 3 ? highlightText(stripHtml(event.description), searchQuery) : stripHtml(event.description)}
+                  {searchQuery ? highlightText(stripHtml(event.description), searchQuery) : stripHtml(event.description)}
                 </p>
               )}
             </div>

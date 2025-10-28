@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useDebounce } from '../hooks/useDebounce';
-import { api } from '../services/api';
+import { api, AuthError } from '../services/api';
 import type { CalendarEvent, Calendar } from '../types';
 import { EventList } from './EventList';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
@@ -29,9 +28,8 @@ export function Dashboard() {
   const [timeMin, setTimeMin] = useState<string>(getTodayISO());
   const [timeMax, setTimeMax] = useState<string | null>(getDateDaysFromNow(14));
 
-  // Search filter
+  // Search filter (instant, client-side only)
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   // Ref for select all checkbox indeterminate state
   const selectAllCheckboxRef = useRef<HTMLInputElement>(null);
@@ -56,22 +54,24 @@ export function Dashboard() {
       }
     } catch (error) {
       console.error('Failed to load calendars:', error);
+
+      // Handle token expiration
+      if (error instanceof AuthError && error.code === 'TOKEN_EXPIRED') {
+        setToast({ message: 'Your session has expired. Please sign in again.', type: 'info' });
+        setTimeout(() => logout(), 2000); // Give user time to see the message
+      }
     }
   };
 
   const loadEvents = async () => {
     try {
       setLoading(true);
-      // Only send search query if it's 3+ characters
-      const effectiveSearchQuery = debouncedSearchQuery && debouncedSearchQuery.length >= 3
-        ? debouncedSearchQuery
-        : undefined;
-
+      // Don't send search query to backend - we'll filter on frontend only
+      // Backend only handles date range filtering (Google Calendar API search is unreliable for partials)
       const { events: fetchedEvents } = await api.getEvents(selectedCalendarId, {
         maxResults: 100,
         timeMin,
         timeMax: timeMax || undefined,
-        searchQuery: effectiveSearchQuery,
       });
       setEvents(fetchedEvents);
 
@@ -82,6 +82,14 @@ export function Dashboard() {
       // Only clear selections when switching calendars, not when filters change
     } catch (error) {
       console.error('Failed to load events:', error);
+
+      // Handle token expiration
+      if (error instanceof AuthError && error.code === 'TOKEN_EXPIRED') {
+        setToast({ message: 'Your session has expired. Please sign in again.', type: 'info' });
+        setTimeout(() => logout(), 2000); // Give user time to see the message
+        return;
+      }
+
       setToast({ message: 'Failed to load calendar events. Please try again.', type: 'error' });
       analytics.apiError('get-events');
     } finally {
@@ -110,12 +118,12 @@ export function Dashboard() {
     if (selectedCalendarId) {
       loadEvents();
     }
-  }, [selectedCalendarId, timeMin, timeMax, debouncedSearchQuery]);
+  }, [selectedCalendarId, timeMin, timeMax]);
 
-  // Client-side filtering for search queries (only when query is 3+ characters)
+  // Client-side filtering for search queries (instant, no backend call)
   const filteredEvents = useMemo(() => {
-    // Don't filter if no query or query is too short
-    if (!searchQuery || searchQuery.length < 3) return events;
+    // Don't filter if no query
+    if (!searchQuery) return events;
 
     const query = searchQuery.toLowerCase();
     return events.filter(event => {
@@ -164,7 +172,7 @@ export function Dashboard() {
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    if (query.length >= 3) {
+    if (query.length > 0) {
       analytics.searchUsed(query.length);
     }
   };
@@ -212,6 +220,14 @@ export function Dashboard() {
       await loadEvents();
     } catch (error) {
       console.error('Failed to delete events:', error);
+
+      // Handle token expiration
+      if (error instanceof AuthError && error.code === 'TOKEN_EXPIRED') {
+        setToast({ message: 'Your session has expired. Please sign in again.', type: 'info' });
+        setTimeout(() => logout(), 2000); // Give user time to see the message
+        return;
+      }
+
       analytics.apiError('delete-events');
       setToast({ message: 'Failed to delete events. Please try again.', type: 'error' });
     } finally {

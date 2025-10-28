@@ -201,6 +201,13 @@ After completing ANY code changes, you MUST:
 - User often wants to batch multiple changes together
 - User will explicitly tell you when to deploy
 
+**During Deployment:**
+- Run the deployment command ONCE and wait patiently
+- Vercel builds take ~2 minutes - this is NORMAL
+- Check output once after 60 seconds, then STOP checking
+- Do NOT spam BashOutput every 5 seconds - it's annoying and wastes tokens
+- The build will complete on its own - just wait
+
 **Additional Notes:**
 - There is NO local development environment - deploy directly to Vercel for testing
 - Never suggest "test locally"

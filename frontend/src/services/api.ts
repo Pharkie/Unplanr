@@ -2,6 +2,16 @@
 // For local dev with separate backend, use VITE_API_URL env var
 const API_URL = import.meta.env.VITE_API_URL || '';
 
+// Custom error class for auth errors
+export class AuthError extends Error {
+  code?: string;
+  constructor(message: string, code?: string) {
+    super(message);
+    this.name = 'AuthError';
+    this.code = code;
+  }
+}
+
 class ApiService {
   private async fetch(endpoint: string, options: RequestInit = {}) {
     const response = await fetch(`${API_URL}${endpoint}`, {
@@ -15,6 +25,12 @@ class ApiService {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+
+      // Handle auth errors specially
+      if (response.status === 401) {
+        throw new AuthError(error.error || 'Authentication required', error.code);
+      }
+
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 
