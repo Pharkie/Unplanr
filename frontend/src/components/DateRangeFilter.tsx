@@ -83,6 +83,8 @@ export function DateRangeFilter({ timeMin, timeMax, onChange }: DateRangeFilterP
               onChange={(date) => handleCustomDateChange(date, timeMax ? new Date(timeMax) : null, true)}
               className="px-3 py-2 text-sm bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
               dateFormat="MMM d, yyyy"
+              withPortal
+              portalId="date-picker-portal"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -95,6 +97,8 @@ export function DateRangeFilter({ timeMin, timeMax, onChange }: DateRangeFilterP
               minDate={new Date(timeMin)}
               isClearable
               placeholderText="No end date"
+              withPortal
+              portalId="date-picker-portal"
             />
           </div>
         </div>

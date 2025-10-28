@@ -1,2 +1,86 @@
 @import "tailwindcss";
 @import "react-datepicker/dist/react-datepicker.css";
+
+/* Mobile-friendly date picker portal styling */
+.react-datepicker-popper[data-placement^="bottom"] {
+  z-index: 9999;
+}
+
+/* Make date picker calendar larger and more readable on mobile */
+@media (max-width: 640px) {
+  .react-datepicker__portal {
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .react-datepicker__portal .react-datepicker {
+    font-size: 1.1rem;
+    border-radius: 0.75rem;
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .react-datepicker__portal .react-datepicker__header {
+    padding: 1rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .react-datepicker__portal .react-datepicker__current-month {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .react-datepicker__portal .react-datepicker__day-name,
+  .react-datepicker__portal .react-datepicker__day {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0.15rem;
+  }
+
+  .react-datepicker__portal .react-datepicker__navigation {
+    top: 1.2rem;
+  }
+
+  .react-datepicker__portal .react-datepicker__month-container {
+    padding: 0.5rem;
+  }
+}
+
+/* Dark mode support for date picker */
+.dark .react-datepicker {
+  background-color: rgb(51 65 85); /* slate-700 */
+  border-color: rgb(71 85 105); /* slate-600 */
+  color: rgb(226 232 240); /* slate-200 */
+}
+
+.dark .react-datepicker__header {
+  background-color: rgb(71 85 105); /* slate-600 */
+  border-bottom-color: rgb(100 116 139); /* slate-500 */
+}
+
+.dark .react-datepicker__current-month,
+.dark .react-datepicker__day-name {
+  color: rgb(226 232 240); /* slate-200 */
+}
+
+.dark .react-datepicker__day {
+  color: rgb(226 232 240); /* slate-200 */
+}
+
+.dark .react-datepicker__day:hover {
+  background-color: rgb(71 85 105); /* slate-600 */
+}
+
+.dark .react-datepicker__day--selected,
+.dark .react-datepicker__day--keyboard-selected {
+  background-color: rgb(59 130 246); /* blue-500 */
+  color: white;
+}
+
+.dark .react-datepicker__day--disabled {
+  color: rgb(100 116 139); /* slate-500 */
+}
