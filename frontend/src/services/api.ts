@@ -38,7 +38,7 @@ class ApiService {
   }
 
   async deleteEvents(eventIds: string[]) {
-    return this.fetch('/api/calendar/events/delete', {
+    return this.fetch('/api/calendar/delete', {
       method: 'POST',
       body: JSON.stringify({ eventIds }),
     });
