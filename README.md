@@ -48,7 +48,7 @@ Unplanr/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/Unplanr.git
+git clone https://github.com/Pharkie/Unplanr.git
 cd Unplanr
 ```
 
@@ -101,7 +101,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. Note that 
 
 ## Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/YOUR_USERNAME/Unplanr/issues) on GitHub.
+If you encounter any issues or have questions, please [open an issue](https://github.com/Pharkie/Unplanr/issues) on GitHub.
 
 ---
 
