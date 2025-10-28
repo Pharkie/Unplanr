@@ -9,7 +9,8 @@ This document outlines future feature ideas and enhancements for Unplanr. Featur
 - ✅ **Date Range Filtering** - Filter events by date range with presets and custom dates
 - ✅ **Search & Filter** - Real-time search with highlighting in titles and descriptions
 - ✅ **Bulk Event Deletion** - Delete up to 100 events at once
-- ✅ **Dark Mode** - Beautiful dark/light theme with persistence
+- ✅ **Dark Mode** - Automatic dark/light theme following system preference
+- ✅ **Manual Refresh** - Refresh button to reload calendar feed after external changes
 
 ---
 
