@@ -180,9 +180,27 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 
 ### Deployment Workflow
 
-**IMPORTANT:**
-- **NEVER suggest "test locally"** - there is NO local development environment for this project
-- **ALWAYS deploy directly to Vercel** for testing
-- **ALWAYS ASK before deploying** - user often wants more changes bundled together
-- Deployments take ~2 minutes each, so batch changes when possible
-- Only deploy when explicitly asked or after confirming: "Ready to deploy?"
+**CRITICAL RULE - READ THIS EVERY TIME:**
+
+🚨 **STOP! NEVER RUN `vercel`, `git push`, OR DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
+
+**The Rule:**
+After completing ANY code changes, you MUST:
+1. Show the user what you changed
+2. Ask: "Ready to deploy, or do you want to make more changes?"
+3. **WAIT for explicit confirmation** before running ANY deployment command
+
+**NO EXCEPTIONS:**
+- Even if the user's request seems urgent
+- Even if the user says "fix this" or "change that"
+- Even if you think they want it deployed
+- **ALWAYS ASK FIRST**
+
+**Why:**
+- Deployments take ~2 minutes each
+- User often wants to batch multiple changes together
+- User will explicitly tell you when to deploy
+
+**Additional Notes:**
+- There is NO local development environment - deploy directly to Vercel for testing
+- Never suggest "test locally"
