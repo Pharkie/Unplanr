@@ -71,7 +71,7 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
   };
 
   return (
-    <div className="divide-y divide-slate-200 dark:divide-slate-700">
+    <div className="divide-y divide-slate-200 dark:divide-slate-700 pb-24 md:pb-0">
       {sortedEvents.map((event) => (
         <div
           key={event.id}
@@ -89,7 +89,7 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
               onClick={(e) => e.stopPropagation()}
             />
             <div className="flex-1 min-w-0">
-              <h3 className="text-base font-semibold text-slate-900 dark:text-white truncate">
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white truncate md:whitespace-normal">
                 {searchQuery ? highlightText(event.summary || '(No title)', searchQuery) : (event.summary || '(No title)')}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2">
