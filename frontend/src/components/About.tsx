@@ -90,6 +90,12 @@ export function About({ onClose }: AboutProps) {
                 </svg>
                 <span><strong>Minimal Permissions</strong> - Only requests access to calendar events, not your entire account</span>
               </li>
+              <li className="flex items-start gap-2">
+                <svg className="w-5 h-5 text-blue-500 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span><strong>Mobile-First Design</strong> - Responsive interface that works beautifully on any device</span>
+              </li>
             </ul>
           </section>
 

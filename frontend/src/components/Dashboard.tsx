@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDebounce } from '../hooks/useDebounce';
 import { api } from '../services/api';
@@ -29,16 +29,26 @@ export function Dashboard() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
+  // Ref for select all checkbox indeterminate state
+  const selectAllCheckboxRef = useRef<HTMLInputElement>(null);
+
   const loadCalendars = async () => {
     try {
       const fetchedCalendars = await api.getCalendars();
-      setCalendars(fetchedCalendars);
+
+      // Sort calendars alphabetically by summary
+      const sortedCalendars = [...fetchedCalendars].sort((a: Calendar, b: Calendar) => {
+        return (a.summary || '').localeCompare(b.summary || '');
+      });
+
+      setCalendars(sortedCalendars);
+
       // Set first calendar as selected, or keep primary if it exists
-      const primaryCal = fetchedCalendars.find((c: Calendar) => c.primary);
+      const primaryCal = sortedCalendars.find((c: Calendar) => c.primary);
       if (primaryCal) {
         setSelectedCalendarId(primaryCal.id);
-      } else if (fetchedCalendars.length > 0) {
-        setSelectedCalendarId(fetchedCalendars[0].id);
+      } else if (sortedCalendars.length > 0) {
+        setSelectedCalendarId(sortedCalendars[0].id);
       }
     } catch (error) {
       console.error('Failed to load calendars:', error);
@@ -89,6 +99,15 @@ export function Dashboard() {
       loadEvents();
     }
   }, [selectedCalendarId, timeMin, timeMax, debouncedSearchQuery]);
+
+  // Update select all checkbox indeterminate state
+  useEffect(() => {
+    if (selectAllCheckboxRef.current) {
+      const hasSelection = selectedIds.size > 0;
+      const isFullSelection = selectedIds.size === events.length && events.length > 0;
+      selectAllCheckboxRef.current.indeterminate = hasSelection && !isFullSelection;
+    }
+  }, [selectedIds, events.length]);
 
   const handleSelectAll = () => {
     if (selectedIds.size === events.length) {
@@ -159,20 +178,6 @@ export function Dashboard() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => {
-                  setSelectedIds(new Set());
-                  loadEvents();
-                }}
-                disabled={loading}
-                className="p-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Refresh events"
-                title="Refresh events"
-              >
-                <svg className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </button>
-              <button
                 onClick={() => setShowAbout(true)}
                 className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 aria-label="About"
@@ -192,18 +197,38 @@ export function Dashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div className="flex gap-6 items-start">
+          {/* Content Area */}
+          <div className="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
           {/* Filters Section */}
           <div className="p-6 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800">
             <div className="space-y-4">
               {/* Title and event count */}
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Upcoming Events</h2>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                  {selectedIds.size > 0
-                    ? `✓ ${selectedIds.size} event(s) selected`
-                    : `📅 ${events.length} event(s) found${events.length === 100 ? ' (max 100 shown at once)' : ''}`}
-                </p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Upcoming Events</h2>
+                    <button
+                      onClick={() => {
+                        setSelectedIds(new Set());
+                        loadEvents();
+                      }}
+                      disabled={loading}
+                      className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      aria-label="Refresh events"
+                      title="Refresh events"
+                    >
+                      <svg className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    {selectedIds.size > 0
+                      ? `✓ ${selectedIds.size} event(s) selected`
+                      : `${events.length} event(s) found${events.length === 100 ? ' (max 100 shown at once)' : ''}`}
+                  </p>
+                </div>
               </div>
 
               {/* Filters row */}
@@ -245,22 +270,23 @@ export function Dashboard() {
                 </div>
               </div>
 
-              {/* Action buttons */}
-              <div className="flex items-center gap-2 flex-wrap justify-end">
-                <button
-                  onClick={handleSelectAll}
+              {/* Select All checkbox */}
+              <div className="flex items-center gap-2">
+                <input
+                  ref={selectAllCheckboxRef}
+                  type="checkbox"
+                  checked={selectedIds.size === events.length && events.length > 0}
+                  onChange={handleSelectAll}
                   disabled={loading || events.length === 0}
-                  className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="h-5 w-5 text-blue-600 dark:text-blue-500 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Select all events"
+                />
+                <label
+                  className="text-sm font-medium text-slate-700 dark:text-slate-300 select-none cursor-pointer"
+                  onClick={() => !loading && events.length > 0 && handleSelectAll()}
                 >
-                  {selectedIds.size === events.length ? 'Deselect All' : 'Select All'}
-                </button>
-                <button
-                  onClick={() => setShowDeleteModal(true)}
-                  disabled={selectedIds.size === 0}
-                  className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg transform hover:scale-105 active:scale-95"
-                >
-                  Delete Selected
-                </button>
+                  Select All
+                </label>
               </div>
             </div>
           </div>
@@ -272,7 +298,64 @@ export function Dashboard() {
             onToggle={handleToggleEvent}
             loading={loading}
           />
+          </div>
+
+          {/* Sticky Sidebar (Desktop) */}
+          {events.length > 0 && (
+            <div className="hidden md:block sticky top-24 w-40">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-4">
+                <div className="flex flex-col items-center gap-4">
+                  {/* Selected count */}
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                      {selectedIds.size}
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                      Selected
+                    </div>
+                  </div>
+
+                  {/* Delete button */}
+                  <button
+                    onClick={() => setShowDeleteModal(true)}
+                    disabled={selectedIds.size === 0}
+                    className="w-full px-4 py-3 text-sm font-semibold bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg transform hover:scale-105 active:scale-95 flex flex-col items-center gap-1"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>Delete</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* Sticky Bottom Bar (Mobile) */}
+        {events.length > 0 && selectedIds.size > 0 && (
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 shadow-xl p-4 z-20">
+            <div className="flex items-center justify-between max-w-7xl mx-auto">
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {selectedIds.size}
+                </div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">
+                  Selected
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="px-6 py-3 text-sm font-semibold bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Delete Confirmation Modal */}
