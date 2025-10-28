@@ -1,25 +1,68 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useDarkMode } from '../hooks/useDarkMode';
+import { useDarkMode } from '../contexts/DarkModeContext';
+import { useDebounce } from '../hooks/useDebounce';
 import { api } from '../services/api';
-import type { CalendarEvent } from '../types';
+import type { CalendarEvent, Calendar } from '../types';
 import { EventList } from './EventList';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
+import { DateRangeFilter } from './DateRangeFilter';
+import { SearchBar } from './SearchBar';
+import { About } from './About';
+import { getTodayISO, getDateDaysFromNow } from '../utils/dateHelpers';
 
 export function Dashboard() {
   const { user, logout } = useAuth();
   const { isDark, toggle } = useDarkMode();
+  const [calendars, setCalendars] = useState<Calendar[]>([]);
+  const [selectedCalendarId, setSelectedCalendarId] = useState<string>('primary');
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  // Date range filter (default: today → 14 days)
+  const [timeMin, setTimeMin] = useState<string>(getTodayISO());
+  const [timeMax, setTimeMax] = useState<string | null>(getDateDaysFromNow(14));
+
+  // Search filter
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  const loadCalendars = async () => {
+    try {
+      const fetchedCalendars = await api.getCalendars();
+      setCalendars(fetchedCalendars);
+      // Set first calendar as selected, or keep primary if it exists
+      const primaryCal = fetchedCalendars.find((c: Calendar) => c.primary);
+      if (primaryCal) {
+        setSelectedCalendarId(primaryCal.id);
+      } else if (fetchedCalendars.length > 0) {
+        setSelectedCalendarId(fetchedCalendars[0].id);
+      }
+    } catch (error) {
+      console.error('Failed to load calendars:', error);
+    }
+  };
 
   const loadEvents = async () => {
     try {
       setLoading(true);
-      const { events: fetchedEvents } = await api.getEvents();
+      // Only send search query if it's 3+ characters
+      const effectiveSearchQuery = debouncedSearchQuery && debouncedSearchQuery.length >= 3
+        ? debouncedSearchQuery
+        : undefined;
+
+      const { events: fetchedEvents } = await api.getEvents(selectedCalendarId, {
+        maxResults: 100,
+        timeMin,
+        timeMax: timeMax || undefined,
+        searchQuery: effectiveSearchQuery,
+      });
       setEvents(fetchedEvents);
+      // Only clear selections when switching calendars, not when filters change
     } catch (error) {
       console.error('Failed to load events:', error);
       alert('Failed to load calendar events. Please try again.');
@@ -28,9 +71,26 @@ export function Dashboard() {
     }
   };
 
+  const handleCalendarChange = (newCalendarId: string) => {
+    setSelectedCalendarId(newCalendarId);
+    setSelectedIds(new Set()); // Clear selections when switching calendars
+  };
+
+  const handleDateRangeChange = (newTimeMin: string, newTimeMax: string | null) => {
+    setTimeMin(newTimeMin);
+    setTimeMax(newTimeMax);
+    // Don't clear selections when date range changes
+  };
+
   useEffect(() => {
-    loadEvents();
+    loadCalendars();
   }, []);
+
+  useEffect(() => {
+    if (selectedCalendarId) {
+      loadEvents();
+    }
+  }, [selectedCalendarId, timeMin, timeMax, debouncedSearchQuery]);
 
   const handleSelectAll = () => {
     if (selectedIds.size === events.length) {
@@ -53,7 +113,7 @@ export function Dashboard() {
   const handleDelete = async () => {
     try {
       setDeleting(true);
-      const result = await api.deleteEvents(Array.from(selectedIds));
+      const result = await api.deleteEvents(selectedCalendarId, Array.from(selectedIds));
 
       alert(`Successfully deleted ${result.succeeded} event(s).${result.failed > 0 ? ` Failed to delete ${result.failed} event(s).` : ''}`);
 
@@ -91,6 +151,13 @@ export function Dashboard() {
             </div>
             <div className="flex items-center gap-2">
               <button
+                onClick={() => setShowAbout(true)}
+                className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+                aria-label="About"
+              >
+                About
+              </button>
+              <button
                 onClick={toggle}
                 className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                 aria-label="Toggle dark mode"
@@ -119,17 +186,60 @@ export function Dashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          {/* Filters Section */}
           <div className="p-6 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800">
-            <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="space-y-4">
+              {/* Title and event count */}
               <div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Upcoming Events</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                   {selectedIds.size > 0
                     ? `✓ ${selectedIds.size} event(s) selected`
-                    : `📅 ${events.length} event(s) found`}
+                    : `📅 ${events.length} event(s) found${events.length === 100 ? ' (max 100 shown at once)' : ''}`}
                 </p>
               </div>
-              <div className="flex gap-2">
+
+              {/* Filters row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Calendar selector */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Calendar:</label>
+                  <select
+                    value={selectedCalendarId}
+                    onChange={(e) => handleCalendarChange(e.target.value)}
+                    className="px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all"
+                >
+                  {calendars.map((calendar) => (
+                    <option key={calendar.id} value={calendar.id}>
+                      {calendar.summary} {calendar.primary && '(Primary)'}
+                    </option>
+                  ))}
+                </select>
+                </div>
+
+                {/* Date range filter */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Date range:</label>
+                  <DateRangeFilter
+                    timeMin={timeMin}
+                    timeMax={timeMax}
+                    onChange={handleDateRangeChange}
+                  />
+                </div>
+
+                {/* Search bar */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Search:</label>
+                  <SearchBar
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    placeholder="Search events..."
+                  />
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex items-center gap-2 flex-wrap justify-end">
                 <button
                   onClick={handleSelectAll}
                   disabled={loading || events.length === 0}
@@ -151,6 +261,7 @@ export function Dashboard() {
           <EventList
             events={events}
             selectedIds={selectedIds}
+            searchQuery={searchQuery}
             onToggle={handleToggleEvent}
             loading={loading}
           />
@@ -166,6 +277,9 @@ export function Dashboard() {
           deleting={deleting}
         />
       )}
+
+      {/* About Modal */}
+      {showAbout && <About onClose={() => setShowAbout(false)} />}
     </div>
   );
 }

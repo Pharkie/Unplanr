@@ -35,14 +35,43 @@ class ApiService {
   }
 
   // Calendar endpoints
-  async getEvents(maxResults = 100) {
-    return this.fetch(`/api/calendar/events?maxResults=${maxResults}`);
+  async getCalendars() {
+    return this.fetch('/api/calendars/list');
   }
 
-  async deleteEvents(eventIds: string[]) {
+  async getEvents(
+    calendarId = 'primary',
+    options: {
+      maxResults?: number;
+      timeMin?: string;
+      timeMax?: string;
+      searchQuery?: string;
+    } = {}
+  ) {
+    const params = new URLSearchParams({
+      calendarId,
+      maxResults: String(options.maxResults || 100),
+    });
+
+    if (options.timeMin) {
+      params.append('timeMin', options.timeMin);
+    }
+
+    if (options.timeMax) {
+      params.append('timeMax', options.timeMax);
+    }
+
+    if (options.searchQuery) {
+      params.append('q', options.searchQuery);
+    }
+
+    return this.fetch(`/api/calendar/events?${params.toString()}`);
+  }
+
+  async deleteEvents(calendarId: string, eventIds: string[]) {
     return this.fetch('/api/calendar/delete', {
       method: 'POST',
-      body: JSON.stringify({ eventIds }),
+      body: JSON.stringify({ calendarId, eventIds }),
     });
   }
 }

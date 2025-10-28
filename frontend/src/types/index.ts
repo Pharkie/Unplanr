@@ -9,6 +9,14 @@ export interface AuthStatus {
   user?: User;
 }
 
+export interface Calendar {
+  id: string;
+  summary: string;
+  description?: string;
+  primary?: boolean;
+  backgroundColor?: string;
+}
+
 export interface CalendarEvent {
   id: string;
   summary: string;
@@ -28,4 +36,14 @@ export interface DeleteResult {
   succeeded: number;
   failed: number;
   total: number;
+}
+
+export interface DateRangeFilter {
+  timeMin: string;  // ISO string
+  timeMax: string | null;  // ISO string or null for "all upcoming"
+}
+
+export interface EventFilters {
+  dateRange: DateRangeFilter;
+  searchQuery: string;
 }

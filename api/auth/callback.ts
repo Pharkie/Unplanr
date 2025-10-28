@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { googleAuthService } from '../lib/googleAuth.js';
-import { calendarService } from '../lib/calendarService.js';
 import { createToken } from '../lib/jwt.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -19,14 +18,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Exchange code for tokens
     const tokens = await googleAuthService.getTokens(code);
 
-    // Get user info
-    const userInfo = await calendarService.getUserInfo(tokens);
-
-    // Create JWT with user data and tokens
+    // Create JWT with tokens only - we don't need user profile info
     const userData = {
-      id: userInfo.id || '',
-      email: userInfo.email || '',
-      name: userInfo.name || '',
       tokens,
     };
 

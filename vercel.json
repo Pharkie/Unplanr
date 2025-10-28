@@ -21,6 +21,10 @@
       "destination": "/api/auth/logout"
     },
     {
+      "source": "/api/calendars/list",
+      "destination": "/api/calendars/list"
+    },
+    {
       "source": "/api/calendar/events",
       "destination": "/api/calendar/events"
     },

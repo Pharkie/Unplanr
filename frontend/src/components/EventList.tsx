@@ -1,13 +1,31 @@
+import { useMemo } from 'react';
 import type { CalendarEvent } from '../types';
+import { highlightText, containsQuery } from '../utils/highlightText';
+import { stripHtml } from '../utils/stripHtml';
 
 interface EventListProps {
   events: CalendarEvent[];
   selectedIds: Set<string>;
   onToggle: (eventId: string) => void;
   loading: boolean;
+  searchQuery?: string;
 }
 
-export function EventList({ events, selectedIds, onToggle, loading }: EventListProps) {
+export function EventList({ events, selectedIds, onToggle, loading, searchQuery = '' }: EventListProps) {
+  // Sort events to prioritize title matches
+  const sortedEvents = useMemo(() => {
+    if (!searchQuery) return events;
+
+    return [...events].sort((a, b) => {
+      const aInTitle = containsQuery(a.summary, searchQuery);
+      const bInTitle = containsQuery(b.summary, searchQuery);
+
+      // Title matches first
+      if (aInTitle && !bInTitle) return -1;
+      if (!aInTitle && bInTitle) return 1;
+      return 0;
+    });
+  }, [events, searchQuery]);
   if (loading) {
     return (
       <div className="p-12 text-center">
@@ -17,7 +35,7 @@ export function EventList({ events, selectedIds, onToggle, loading }: EventListP
     );
   }
 
-  if (events.length === 0) {
+  if (sortedEvents.length === 0) {
     return (
       <div className="p-12 text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-full mb-4">
@@ -25,8 +43,12 @@ export function EventList({ events, selectedIds, onToggle, loading }: EventListP
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
-        <p className="text-slate-600 dark:text-slate-400 font-medium">No upcoming events found</p>
-        <p className="text-sm text-slate-500 dark:text-slate-500 mt-1">Your calendar is clear!</p>
+        <p className="text-slate-600 dark:text-slate-400 font-medium">
+          {searchQuery ? `No events found matching "${searchQuery}"` : 'No upcoming events found'}
+        </p>
+        <p className="text-sm text-slate-500 dark:text-slate-500 mt-1">
+          {searchQuery ? 'Try a different search term' : 'Your calendar is clear!'}
+        </p>
       </div>
     );
   }
@@ -50,7 +72,7 @@ export function EventList({ events, selectedIds, onToggle, loading }: EventListP
 
   return (
     <div className="divide-y divide-slate-200 dark:divide-slate-700">
-      {events.map((event) => (
+      {sortedEvents.map((event) => (
         <div
           key={event.id}
           className={`p-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors cursor-pointer ${
@@ -68,7 +90,7 @@ export function EventList({ events, selectedIds, onToggle, loading }: EventListP
             />
             <div className="flex-1 min-w-0">
               <h3 className="text-base font-semibold text-slate-900 dark:text-white truncate">
-                {event.summary || '(No title)'}
+                {searchQuery ? highlightText(event.summary || '(No title)', searchQuery) : (event.summary || '(No title)')}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,7 +100,7 @@ export function EventList({ events, selectedIds, onToggle, loading }: EventListP
               </p>
               {event.description && (
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
-                  {event.description}
+                  {searchQuery ? highlightText(stripHtml(event.description), searchQuery) : stripHtml(event.description)}
                 </p>
               )}
             </div>

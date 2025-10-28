@@ -26,11 +26,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Get events
+    const calendarId = (req.query.calendarId as string) || 'primary';
     const maxResults = req.query.maxResults
       ? parseInt(req.query.maxResults as string)
       : 100;
+    const timeMin = req.query.timeMin as string;
+    const timeMax = req.query.timeMax as string;
+    const q = req.query.q as string;
 
-    const events = await calendarService.listEvents(userData.tokens, maxResults);
+    const events = await calendarService.listEvents(userData.tokens, calendarId, {
+      maxResults,
+      timeMin,
+      timeMax,
+      q,
+    });
 
     res.status(200).json({ events });
   } catch (error: any) {

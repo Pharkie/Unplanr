@@ -177,3 +177,12 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 - TypeScript strict mode is preferred
 - Write tests for critical paths (OAuth, deletion)
 - Focus on the core use case before adding features
+
+### Deployment Workflow
+
+**IMPORTANT:**
+- **NEVER suggest "test locally"** - there is NO local development environment for this project
+- **ALWAYS deploy directly to Vercel** for testing
+- **ALWAYS ASK before deploying** - user often wants more changes bundled together
+- Deployments take ~2 minutes each, so batch changes when possible
+- Only deploy when explicitly asked or after confirming: "Ready to deploy?"

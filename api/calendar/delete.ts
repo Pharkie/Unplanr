@@ -26,7 +26,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Validate request body
-    const { eventIds } = req.body;
+    const { eventIds, calendarId } = req.body;
+
+    if (!calendarId) {
+      return res.status(400).json({ error: 'calendarId is required' });
+    }
 
     if (!Array.isArray(eventIds) || eventIds.length === 0) {
       return res.status(400).json({ error: 'eventIds must be a non-empty array' });
@@ -42,7 +46,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Delete events
-    const result = await calendarService.deleteMultipleEvents(userData.tokens, eventIds);
+    const result = await calendarService.deleteMultipleEvents(userData.tokens, calendarId, eventIds);
 
     res.status(200).json(result);
   } catch (error: any) {

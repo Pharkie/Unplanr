@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { calendarService } from '../lib/calendarService.js';
 import { getTokenFromCookie, verifyToken } from '../lib/jwt.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -8,23 +9,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const token = getTokenFromCookie(req.headers.cookie);
-
     if (!token) {
-      return res.status(200).json({ authenticated: false });
+      return res.status(401).json({ error: 'Not authenticated' });
     }
 
     const userData = await verifyToken(token);
-
-    if (!userData) {
-      return res.status(200).json({ authenticated: false });
+    if (!userData || !userData.tokens) {
+      return res.status(401).json({ error: 'Invalid token' });
     }
 
-    // Just return authenticated status - we don't need user profile info
-    res.status(200).json({
-      authenticated: true,
-    });
+    const calendars = await calendarService.listCalendars(userData.tokens);
+    res.status(200).json(calendars);
   } catch (error: any) {
-    console.error('Error checking auth status:', error);
-    res.status(500).json({ error: 'Failed to check auth status' });
+    console.error('Error listing calendars:', error);
+    res.status(500).json({ error: 'Failed to list calendars' });
   }
 }

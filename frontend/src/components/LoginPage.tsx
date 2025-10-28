@@ -1,5 +1,5 @@
 import { useAuth } from '../contexts/AuthContext';
-import { useDarkMode } from '../hooks/useDarkMode';
+import { useDarkMode } from '../contexts/DarkModeContext';
 
 export function LoginPage() {
   const { login } = useAuth();

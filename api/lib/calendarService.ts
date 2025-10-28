@@ -1,43 +1,82 @@
 import { google } from 'googleapis';
-import { googleAuthService } from './googleAuth.js';
 
 const MAX_EVENTS_PER_REQUEST = 100;
 
 export class CalendarService {
-  async listEvents(tokens: any, maxResults = 100) {
+  // Create a new authenticated OAuth2Client for each request
+  private createAuthClient(tokens: any) {
+    const oauth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID,
+      process.env.GOOGLE_CLIENT_SECRET,
+      process.env.GOOGLE_REDIRECT_URI
+    );
+    oauth2Client.setCredentials(tokens);
+    return oauth2Client;
+  }
+
+  async listCalendars(tokens: any) {
+    const auth = this.createAuthClient(tokens);
+    const calendar = google.calendar({ version: 'v3', auth });
+
+    const response = await calendar.calendarList.list();
+    return response.data.items || [];
+  }
+
+  async listEvents(
+    tokens: any,
+    calendarId = 'primary',
+    options: {
+      maxResults?: number;
+      timeMin?: string;
+      timeMax?: string;
+      q?: string;
+    } = {}
+  ) {
     // Enforce 100 event limit
-    const limitedMaxResults = Math.min(maxResults, MAX_EVENTS_PER_REQUEST);
+    const limitedMaxResults = Math.min(options.maxResults || 100, MAX_EVENTS_PER_REQUEST);
 
-    googleAuthService.setCredentials(tokens);
-    const calendar = google.calendar({ version: 'v3', auth: googleAuthService.getOAuth2Client() });
+    const auth = this.createAuthClient(tokens);
+    const calendar = google.calendar({ version: 'v3', auth });
 
-    const response = await calendar.events.list({
-      calendarId: 'primary',
+    // Build the request parameters
+    const params: any = {
+      calendarId,
       maxResults: limitedMaxResults,
       singleEvents: true,
       orderBy: 'startTime',
-      timeMin: new Date().toISOString(),
-    });
+      timeMin: options.timeMin || new Date().toISOString(),
+    };
+
+    // Add optional parameters if provided
+    if (options.timeMax) {
+      params.timeMax = options.timeMax;
+    }
+
+    if (options.q) {
+      params.q = options.q;
+    }
+
+    const response = await calendar.events.list(params);
 
     return response.data.items || [];
   }
 
-  async deleteEvent(tokens: any, eventId: string) {
-    googleAuthService.setCredentials(tokens);
-    const calendar = google.calendar({ version: 'v3', auth: googleAuthService.getOAuth2Client() });
+  async deleteEvent(tokens: any, calendarId: string, eventId: string) {
+    const auth = this.createAuthClient(tokens);
+    const calendar = google.calendar({ version: 'v3', auth });
 
     await calendar.events.delete({
-      calendarId: 'primary',
+      calendarId,
       eventId,
     });
   }
 
-  async deleteMultipleEvents(tokens: any, eventIds: string[]) {
+  async deleteMultipleEvents(tokens: any, calendarId: string, eventIds: string[]) {
     // Enforce 100 event limit
     const limitedEventIds = eventIds.slice(0, MAX_EVENTS_PER_REQUEST);
 
     const results = await Promise.allSettled(
-      limitedEventIds.map((eventId) => this.deleteEvent(tokens, eventId))
+      limitedEventIds.map((eventId) => this.deleteEvent(tokens, calendarId, eventId))
     );
 
     const succeeded = results.filter((r) => r.status === 'fulfilled').length;
@@ -49,14 +88,6 @@ export class CalendarService {
       total: limitedEventIds.length,
       limited: eventIds.length > MAX_EVENTS_PER_REQUEST
     };
-  }
-
-  async getUserInfo(tokens: any) {
-    googleAuthService.setCredentials(tokens);
-    const oauth2 = google.oauth2({ version: 'v2', auth: googleAuthService.getOAuth2Client() });
-
-    const response = await oauth2.userinfo.get();
-    return response.data;
   }
 }
 
