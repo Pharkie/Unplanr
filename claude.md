@@ -182,7 +182,7 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 
 **CRITICAL RULE - READ THIS EVERY TIME:**
 
-🚨 **STOP! NEVER RUN `vercel`, `git push`, OR DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
+🚨 **STOP! NEVER RUN DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
 
 **The Rule:**
 After completing ANY code changes, you MUST:
@@ -201,12 +201,32 @@ After completing ANY code changes, you MUST:
 - User often wants to batch multiple changes together
 - User will explicitly tell you when to deploy
 
-**During Deployment:**
-- Run the deployment command ONCE and wait patiently
+**Deployment Method:**
+
+⚠️ **IMPORTANT: This project uses GitHub integration for automatic Vercel deployments** ⚠️
+
+**When user says "deploy", run ONLY:**
+```bash
+git push
+```
+
+**DO NOT RUN:**
+- ❌ `vercel --prod --yes`
+- ❌ `vercel --prod`
+- ❌ `vercel deploy --prod`
+- ❌ `git push && vercel --prod --yes` (creates duplicate deployments!)
+- ❌ ANY manual Vercel CLI commands
+
+**Why:**
+- GitHub integration automatically triggers Vercel deployment on push
+- Running `vercel --prod` creates a DUPLICATE deployment (wastes resources)
+- Just push to GitHub and Vercel handles the rest automatically
+
+**After Deploying:**
 - Vercel builds take ~2 minutes - this is NORMAL
-- Check output once after 60 seconds, then STOP checking
+- Check deployment status ONCE after 60-90 seconds with: `vercel ls --yes | head -5`
 - Do NOT spam BashOutput every 5 seconds - it's annoying and wastes tokens
-- The build will complete on its own - just wait
+- The build will complete on its own - just wait patiently
 
 **Additional Notes:**
 - There is NO local development environment - deploy directly to Vercel for testing
