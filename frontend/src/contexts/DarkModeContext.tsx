@@ -1,38 +1,38 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, type ReactNode } from 'react';
 
-interface DarkModeContextType {
-  isDark: boolean;
-  toggle: () => void;
-  setIsDark: (value: boolean) => void;
-}
-
-const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
+const DarkModeContext = createContext<undefined>(undefined);
 
 export function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDark, setIsDark] = useState(() => {
-    // Check localStorage first
-    const stored = localStorage.getItem('darkMode');
-    if (stored !== null) {
-      return stored === 'true';
-    }
-    // Fall back to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
-
   useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('darkMode', String(isDark));
-  }, [isDark]);
+    // Apply system preference on mount
+    const applySystemPreference = () => {
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const root = document.documentElement;
+      if (isDark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    };
 
-  const toggle = () => setIsDark(!isDark);
+    applySystemPreference();
+
+    // Listen for system preference changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   return (
-    <DarkModeContext.Provider value={{ isDark, toggle, setIsDark }}>
+    <DarkModeContext.Provider value={undefined}>
       {children}
     </DarkModeContext.Provider>
   );
@@ -40,8 +40,8 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
 
 export function useDarkMode() {
   const context = useContext(DarkModeContext);
-  if (!context) {
-    throw new Error('useDarkMode must be used within DarkModeProvider');
+  if (context === undefined) {
+    throw new Error('useDarkMode must be used within a DarkModeProvider');
   }
   return context;
 }
