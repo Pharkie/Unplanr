@@ -10,18 +10,9 @@ export function LoginPage() {
           {/* Hero Section */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 rounded-2xl mb-4 shadow-lg">
-              <svg className="w-8 h-8 text-white" viewBox="0 0 32 32" fill="none">
-                {/* Calendar background */}
-                <rect x="4" y="6" width="24" height="22" rx="2" fill="currentColor"/>
-                {/* Calendar header */}
-                <rect x="4" y="6" width="24" height="6" rx="2" fill="currentColor" opacity="0.8"/>
-                <rect x="4" y="10" width="24" height="2" fill="currentColor" opacity="0.8"/>
-                {/* Binding rings */}
-                <circle cx="10" cy="8" r="1.5" fill="currentColor" opacity="0.9"/>
-                <circle cx="22" cy="8" r="1.5" fill="currentColor" opacity="0.9"/>
-                {/* X mark (delete symbol) */}
-                <line x1="12" y1="16" x2="20" y2="24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-                <line x1="20" y1="16" x2="12" y2="24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 11l4 4m0-4l-4 4" />
               </svg>
             </div>
             <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-3">
@@ -36,10 +27,10 @@ export function LoginPage() {
           <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 backdrop-blur-sm border border-slate-200 dark:border-slate-700">
             {/* Features */}
             <div className="mb-6 space-y-3">
-              <Feature icon="📅" text="View all upcoming events" />
-              <Feature icon="✨" text="Select up to 100 events" />
-              <Feature icon="🗑️" text="Delete in bulk with one click" />
-              <Feature icon="🔒" text="Secure & private" />
+              <Feature icon="🔍" title="View events by date or search" description="Filter down to exactly what you need" />
+              <Feature icon="✨" title="Select up to 100 events" description="Checkboxes beat clicking one-by-one" />
+              <Feature icon="⚡" title="Delete them all instantly" description="Reclaim your calendar in seconds" />
+              <Feature icon="📚" title="All your calendars" description="Switch between your Google Calendars quickly" />
             </div>
 
             {/* Sign In Button */}
@@ -97,11 +88,14 @@ export function LoginPage() {
   );
 }
 
-function Feature({ icon, text }: { icon: string; text: string }) {
+function Feature({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
-      <span className="text-2xl">{icon}</span>
-      <span className="text-sm font-medium">{text}</span>
+    <div className="flex items-start gap-3">
+      <span className="text-2xl flex-shrink-0">{icon}</span>
+      <div className="flex-1">
+        <div className="text-sm font-semibold text-slate-800 dark:text-white">{title}</div>
+        <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{description}</div>
+      </div>
     </div>
   );
 }

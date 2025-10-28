@@ -44,10 +44,10 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
           </svg>
         </div>
         <p className="text-slate-600 dark:text-slate-400 font-medium">
-          {searchQuery ? `No events found matching "${searchQuery}"` : 'No upcoming events found'}
+          {searchQuery ? `No events found matching "${searchQuery}"` : 'No events found'}
         </p>
         <p className="text-sm text-slate-500 dark:text-slate-500 mt-1">
-          {searchQuery ? 'Try a different search term' : 'Your calendar is clear!'}
+          {searchQuery ? 'Try a different search term' : 'Try adjusting your date range or calendar selection'}
         </p>
       </div>
     );

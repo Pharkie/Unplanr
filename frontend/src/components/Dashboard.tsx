@@ -166,18 +166,9 @@ export function Dashboard() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <svg className="w-5 h-5 text-white" viewBox="0 0 32 32" fill="none">
-                    {/* Calendar background */}
-                    <rect x="4" y="6" width="24" height="22" rx="2" fill="currentColor"/>
-                    {/* Calendar header */}
-                    <rect x="4" y="6" width="24" height="6" rx="2" fill="currentColor" opacity="0.8"/>
-                    <rect x="4" y="10" width="24" height="2" fill="currentColor" opacity="0.8"/>
-                    {/* Binding rings */}
-                    <circle cx="10" cy="8" r="1.5" fill="currentColor" opacity="0.9"/>
-                    <circle cx="22" cy="8" r="1.5" fill="currentColor" opacity="0.9"/>
-                    {/* X mark (delete symbol) */}
-                    <line x1="12" y1="16" x2="20" y2="24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-                    <line x1="20" y1="16" x2="12" y2="24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 11l4 4m0-4l-4 4" />
                   </svg>
                 </div>
                 <div>

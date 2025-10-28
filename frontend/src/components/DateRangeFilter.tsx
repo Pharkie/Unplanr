@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { startOfDay } from 'date-fns';
+import { startOfDay, addDays } from 'date-fns';
 import { DATE_PRESETS, PRESET_LABELS, getTodayISO, getDateDaysFromNow } from '../utils/dateHelpers';
 
 interface DateRangeFilterProps {
@@ -49,10 +49,13 @@ export function DateRangeFilter({ timeMin, timeMax, onChange }: DateRangeFilterP
     }
   };
 
-  const handleCustomDateChange = (start: Date | null, end: Date | null) => {
+  const handleCustomDateChange = (start: Date | null, end: Date | null, isStartChange: boolean = false) => {
     if (start) {
       const startISO = startOfDay(start).toISOString();
-      const endISO = end ? startOfDay(end).toISOString() : null;
+      // If start date is being changed and no end date exists, default to start + 14 days
+      const endISO = isStartChange && !end
+        ? addDays(startOfDay(start), 14).toISOString()
+        : end ? startOfDay(end).toISOString() : null;
       onChange(startISO, endISO);
     }
   };
@@ -77,7 +80,7 @@ export function DateRangeFilter({ timeMin, timeMax, onChange }: DateRangeFilterP
             <label className="text-xs text-slate-600 dark:text-slate-400">From:</label>
             <DatePicker
               selected={new Date(timeMin)}
-              onChange={(date) => handleCustomDateChange(date, timeMax ? new Date(timeMax) : null)}
+              onChange={(date) => handleCustomDateChange(date, timeMax ? new Date(timeMax) : null, true)}
               className="px-3 py-2 text-sm bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
               dateFormat="MMM d, yyyy"
             />
