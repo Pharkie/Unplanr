@@ -180,9 +180,11 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 
 ### Deployment Workflow
 
-**CRITICAL RULE - READ THIS EVERY TIME:**
+**⚠️⚠️⚠️ CRITICAL RULE - READ THIS EVERY TIME ⚠️⚠️⚠️**
 
-🚨 **STOP! NEVER RUN DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
+🚨 **STOP! NEVER RUN `git push` OR ANY DEPLOYMENT COMMANDS WITHOUT ASKING FIRST** 🚨
+
+🛑 **DO NOT PUSH TO GIT WITHOUT EXPLICIT USER APPROVAL** 🛑
 
 **The Rule:**
 After completing ANY code changes, you MUST:

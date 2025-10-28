@@ -51,7 +51,7 @@ Unplanr/
 
 ## How to Use
 
-Simply visit [unplanr.com](https://unplanr.com) and sign in with your Google account. Select the events you want to delete and click "Delete Selected". That's it!
+Simply visit **[unplanr.com](https://unplanr.com)** and sign in with your Google account. Select the events you want to delete and click "Delete Selected". That's it!
 
 ## For Developers
 
