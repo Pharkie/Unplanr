@@ -43,11 +43,7 @@ Visit: https://console.cloud.google.com/
   - **Important:** Use `calendar.events` NOT `calendar` (more restrictive = better privacy)
 - Click "UPDATE"
 - Click "SAVE AND CONTINUE"
-
-**Test users:**
-- Click "SAVE AND CONTINUE" (can skip this - not needed for External apps)
-
-**Summary:**
+- Click "SAVE AND CONTINUE" again (skip test users - not needed)
 - Click "BACK TO DASHBOARD"
 
 ### 5. Create OAuth 2.0 Credentials
