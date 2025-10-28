@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
-import { CalendarEvent } from '../types';
+import type { CalendarEvent } from '../types';
 import { EventList } from './EventList';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 
