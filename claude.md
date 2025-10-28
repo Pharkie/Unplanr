@@ -203,24 +203,38 @@ After completing ANY code changes, you MUST:
 
 **Deployment Method:**
 
-⚠️ **IMPORTANT: This project uses GitHub integration for automatic Vercel deployments** ⚠️
+🚫 **CRITICAL: DO NOT USE THE `vercel` COMMAND TO DEPLOY** 🚫
 
-**When user says "deploy", run ONLY:**
+This project uses **GitHub integration** - Vercel automatically deploys when you push to GitHub.
+
+**When user says "deploy", the ONLY command you run is:**
 ```bash
 git push
 ```
 
-**DO NOT RUN:**
-- ❌ `vercel --prod --yes`
-- ❌ `vercel --prod`
-- ❌ `vercel deploy --prod`
-- ❌ `git push && vercel --prod --yes` (creates duplicate deployments!)
-- ❌ ANY manual Vercel CLI commands
+**That's it. Just `git push`. Vercel will automatically deploy. You are DONE. Do NOT run any other commands.**
 
-**Why:**
-- GitHub integration automatically triggers Vercel deployment on push
-- Running `vercel --prod` creates a DUPLICATE deployment (wastes resources)
-- Just push to GitHub and Vercel handles the rest automatically
+**NEVER EVER RUN THESE COMMANDS:**
+- ❌ `vercel`
+- ❌ `vercel --prod`
+- ❌ `vercel --prod --yes`
+- ❌ `vercel deploy`
+- ❌ `vercel deploy --prod`
+- ❌ `git push && vercel --prod --yes`
+- ❌ **ANY command containing the word "vercel"**
+
+**Why you must NOT run `vercel` commands:**
+- GitHub integration AUTOMATICALLY triggers Vercel deployment when you push
+- Running `vercel --prod` creates a SECOND duplicate deployment (wastes resources)
+- **`git push` is the ONLY deployment command needed**
+
+**To be absolutely clear:**
+1. User says "deploy"
+2. You run: `git push`
+3. GitHub receives the push
+4. GitHub automatically tells Vercel to deploy
+5. Vercel builds and deploys automatically
+6. **You are DONE** - do NOT run `vercel` or any other command
 
 **After Deploying:**
 - Vercel builds take ~2 minutes - this is NORMAL
