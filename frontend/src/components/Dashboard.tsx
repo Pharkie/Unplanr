@@ -300,12 +300,12 @@ export function Dashboard() {
                       onClick={handleRefresh}
                       disabled={loading}
                       className="flex items-center gap-1.5 px-2 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      aria-label="Refresh calendar"
+                      aria-label="Refresh from Google"
                     >
                       <svg className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                       </svg>
-                      <span>Refresh calendar</span>
+                      <span>Refresh from Google</span>
                     </button>
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
