@@ -38,9 +38,12 @@ Visit: https://console.cloud.google.com/
 
 **Scopes:**
 - Click "ADD OR REMOVE SCOPES"
-- Search for: `calendar.events`
-- Check the box for: `.../auth/calendar.events` - "View and edit events on all your calendars"
-  - **Important:** Use `calendar.events` NOT `calendar` (more restrictive = better privacy)
+- Search for and add BOTH of these scopes:
+  1. `.../auth/calendar.events` - "View and edit events on all your calendars"
+  2. `.../auth/calendar.calendarlist.readonly` - "View your calendars"
+- Check the boxes for BOTH scopes
+  - **Why two scopes?** `calendar.events` allows viewing/editing/deleting events, and `calendar.calendarlist.readonly` allows listing which calendars you have access to
+  - **Important:** Use these minimal scopes instead of the broader `calendar` scope for better privacy
 - Click "UPDATE"
 - Click "SAVE AND CONTINUE"
 
