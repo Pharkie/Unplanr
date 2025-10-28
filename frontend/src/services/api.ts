@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// On Vercel, API is on same domain at /api/*
+// For local dev with separate backend, use VITE_API_URL env var
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 class ApiService {
   private async fetch(endpoint: string, options: RequestInit = {}) {
