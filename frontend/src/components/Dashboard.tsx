@@ -8,6 +8,7 @@ import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { DateRangeFilter } from './DateRangeFilter';
 import { SearchBar } from './SearchBar';
 import { About } from './About';
+import { Toast } from './Toast';
 import { getTodayISO, getDateDaysFromNow } from '../utils/dateHelpers';
 
 export function Dashboard() {
@@ -20,6 +21,7 @@ export function Dashboard() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
   // Date range filter (default: today → 14 days)
   const [timeMin, setTimeMin] = useState<string>(getTodayISO());
@@ -73,7 +75,7 @@ export function Dashboard() {
       // Only clear selections when switching calendars, not when filters change
     } catch (error) {
       console.error('Failed to load events:', error);
-      alert('Failed to load calendar events. Please try again.');
+      setToast({ message: 'Failed to load calendar events. Please try again.', type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -132,14 +134,24 @@ export function Dashboard() {
       setDeleting(true);
       const result = await api.deleteEvents(selectedCalendarId, Array.from(selectedIds));
 
-      alert(`Successfully deleted ${result.succeeded} event(s).${result.failed > 0 ? ` Failed to delete ${result.failed} event(s).` : ''}`);
+      if (result.failed > 0) {
+        setToast({
+          message: `Deleted ${result.succeeded} event(s). Failed to delete ${result.failed} event(s).`,
+          type: 'error'
+        });
+      } else {
+        setToast({
+          message: `Successfully deleted ${result.succeeded} event(s)`,
+          type: 'success'
+        });
+      }
 
       setSelectedIds(new Set());
       setShowDeleteModal(false);
       await loadEvents();
     } catch (error) {
       console.error('Failed to delete events:', error);
-      alert('Failed to delete events. Please try again.');
+      setToast({ message: 'Failed to delete events. Please try again.', type: 'error' });
     } finally {
       setDeleting(false);
     }
@@ -370,6 +382,15 @@ export function Dashboard() {
 
       {/* About Modal */}
       {showAbout && <About onClose={() => setShowAbout(false)} />}
+
+      {/* Toast Notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

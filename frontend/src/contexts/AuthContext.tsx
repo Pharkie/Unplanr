@@ -55,8 +55,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       window.history.replaceState({}, document.title, window.location.pathname);
       checkAuth();
     } else if (params.get('error')) {
-      const error = params.get('error');
-      alert(`Authentication failed: ${error}`);
+      // Authentication failed - user will be redirected back to login page
+      console.error('Authentication failed:', params.get('error'));
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
