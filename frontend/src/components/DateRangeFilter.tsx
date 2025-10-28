@@ -52,8 +52,8 @@ export function DateRangeFilter({ timeMin, timeMax, onChange }: DateRangeFilterP
   const handleCustomDateChange = (start: Date | null, end: Date | null, isStartChange: boolean = false) => {
     if (start) {
       const startISO = startOfDay(start).toISOString();
-      // If start date is being changed and no end date exists, default to start + 14 days
-      const endISO = isStartChange && !end
+      // If start date is being changed, ALWAYS default end to start + 14 days
+      const endISO = isStartChange
         ? addDays(startOfDay(start), 14).toISOString()
         : end ? startOfDay(end).toISOString() : null;
       onChange(startISO, endISO);
