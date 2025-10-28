@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { api } from '../services/api';
 import type { AuthStatus } from '../types';
+import { analytics } from '../utils/analytics';
 
 interface AuthContextType extends AuthStatus {
   login: () => Promise<void>;
@@ -38,6 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
+      analytics.logout();
       await api.logout();
       setAuthStatus({ authenticated: false });
     } catch (error) {
@@ -51,10 +53,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Check URL params for auth callback
     const params = new URLSearchParams(window.location.search);
     if (params.get('auth') === 'success') {
+      analytics.loginSuccess();
       // Remove query params and refresh auth status
       window.history.replaceState({}, document.title, window.location.pathname);
       checkAuth();
     } else if (params.get('error')) {
+      analytics.loginFailed();
       // Authentication failed - user will be redirected back to login page
       console.error('Authentication failed:', params.get('error'));
       window.history.replaceState({}, document.title, window.location.pathname);

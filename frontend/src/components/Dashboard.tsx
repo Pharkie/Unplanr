@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDebounce } from '../hooks/useDebounce';
 import { api } from '../services/api';
@@ -10,9 +10,11 @@ import { SearchBar } from './SearchBar';
 import { About } from './About';
 import { Toast } from './Toast';
 import { getTodayISO, getDateDaysFromNow } from '../utils/dateHelpers';
+import { stripHtml } from '../utils/stripHtml';
+import { analytics } from '../utils/analytics';
 
 export function Dashboard() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [calendars, setCalendars] = useState<Calendar[]>([]);
   const [selectedCalendarId, setSelectedCalendarId] = useState<string>('primary');
   const [events, setEvents] = useState<CalendarEvent[]>([]);
@@ -72,16 +74,24 @@ export function Dashboard() {
         searchQuery: effectiveSearchQuery,
       });
       setEvents(fetchedEvents);
+
+      // Track events loaded
+      const isPrimary = selectedCalendarId === 'primary';
+      analytics.eventsLoaded(fetchedEvents.length, isPrimary ? 'primary' : 'other');
+
       // Only clear selections when switching calendars, not when filters change
     } catch (error) {
       console.error('Failed to load events:', error);
       setToast({ message: 'Failed to load calendar events. Please try again.', type: 'error' });
+      analytics.apiError('get-events');
     } finally {
       setLoading(false);
     }
   };
 
   const handleCalendarChange = (newCalendarId: string) => {
+    const isPrimary = newCalendarId === 'primary';
+    analytics.calendarSwitched(isPrimary);
     setSelectedCalendarId(newCalendarId);
     setSelectedIds(new Set()); // Clear selections when switching calendars
   };
@@ -102,20 +112,38 @@ export function Dashboard() {
     }
   }, [selectedCalendarId, timeMin, timeMax, debouncedSearchQuery]);
 
+  // Client-side filtering for search queries (only when query is 3+ characters)
+  const filteredEvents = useMemo(() => {
+    // Don't filter if no query or query is too short
+    if (!searchQuery || searchQuery.length < 3) return events;
+
+    const query = searchQuery.toLowerCase();
+    return events.filter(event => {
+      // Search in title
+      if (event.summary?.toLowerCase().includes(query)) return true;
+      // Search in description
+      if (event.description && stripHtml(event.description).toLowerCase().includes(query)) return true;
+      // Search in location
+      if (event.location?.toLowerCase().includes(query)) return true;
+      return false;
+    });
+  }, [events, searchQuery]);
+
   // Update select all checkbox indeterminate state
   useEffect(() => {
     if (selectAllCheckboxRef.current) {
       const hasSelection = selectedIds.size > 0;
-      const isFullSelection = selectedIds.size === events.length && events.length > 0;
+      const isFullSelection = selectedIds.size === filteredEvents.length && filteredEvents.length > 0;
       selectAllCheckboxRef.current.indeterminate = hasSelection && !isFullSelection;
     }
-  }, [selectedIds, events.length]);
+  }, [selectedIds, filteredEvents.length]);
 
   const handleSelectAll = () => {
-    if (selectedIds.size === events.length) {
+    if (selectedIds.size === filteredEvents.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(events.map((e) => e.id)));
+      analytics.selectAllUsed(filteredEvents.length);
+      setSelectedIds(new Set(filteredEvents.map((e) => e.id)));
     }
   };
 
@@ -127,19 +155,52 @@ export function Dashboard() {
       newSelected.add(eventId);
     }
     setSelectedIds(newSelected);
+
+    // Track selection count when user toggles
+    if (newSelected.size > 0) {
+      analytics.eventsSelected(newSelected.size);
+    }
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    if (query.length >= 3) {
+      analytics.searchUsed(query.length);
+    }
+  };
+
+  const handleRefresh = () => {
+    analytics.refreshClicked();
+    setSelectedIds(new Set());
+    loadEvents();
+  };
+
+  const handleAboutOpen = () => {
+    analytics.aboutOpened();
+    setShowAbout(true);
+  };
+
+  const handleDeleteModalOpen = () => {
+    analytics.deleteInitiated(selectedIds.size);
+    setShowDeleteModal(true);
   };
 
   const handleDelete = async () => {
     try {
       setDeleting(true);
+      const deleteCount = selectedIds.size;
+      analytics.deleteConfirmed(deleteCount);
+
       const result = await api.deleteEvents(selectedCalendarId, Array.from(selectedIds));
 
       if (result.failed > 0) {
+        analytics.deleteFailed(result.succeeded, result.failed);
         setToast({
           message: `Deleted ${result.succeeded} event(s). Failed to delete ${result.failed} event(s).`,
           type: 'error'
         });
       } else {
+        analytics.deleteSuccess(result.succeeded);
         setToast({
           message: `Successfully deleted ${result.succeeded} event(s)`,
           type: 'success'
@@ -151,6 +212,7 @@ export function Dashboard() {
       await loadEvents();
     } catch (error) {
       console.error('Failed to delete events:', error);
+      analytics.apiError('delete-events');
       setToast({ message: 'Failed to delete events. Please try again.', type: 'error' });
     } finally {
       setDeleting(false);
@@ -167,7 +229,7 @@ export function Dashboard() {
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
                   <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 11l4 4m0-4l-4 4" />
                   </svg>
                 </div>
@@ -175,13 +237,15 @@ export function Dashboard() {
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                     Unplanr
                   </h1>
-                  <p className="text-xs text-slate-600 dark:text-slate-400">{user?.email}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-500 -mt-0.5">
+                    Bulk Google Calendar delete
+                  </p>
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setShowAbout(true)}
+                onClick={handleAboutOpen}
                 className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 aria-label="About"
               >
@@ -212,24 +276,21 @@ export function Dashboard() {
                   <div className="flex items-center gap-2">
                     <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Upcoming Events</h2>
                     <button
-                      onClick={() => {
-                        setSelectedIds(new Set());
-                        loadEvents();
-                      }}
+                      onClick={handleRefresh}
                       disabled={loading}
-                      className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      aria-label="Refresh events"
-                      title="Refresh events"
+                      className="flex items-center gap-1.5 px-2 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      aria-label="Refresh calendar"
                     >
                       <svg className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                       </svg>
+                      <span>Refresh calendar</span>
                     </button>
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                     {selectedIds.size > 0
                       ? `✓ ${selectedIds.size} event(s) selected`
-                      : `${events.length} event(s) found${events.length === 100 ? ' (max 100 shown at once)' : ''}`}
+                      : `${filteredEvents.length} event(s) found${filteredEvents.length === 100 ? ' (max 100 shown at once)' : ''}`}
                   </p>
                 </div>
               </div>
@@ -267,7 +328,7 @@ export function Dashboard() {
                   <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Search:</label>
                   <SearchBar
                     value={searchQuery}
-                    onChange={setSearchQuery}
+                    onChange={handleSearchChange}
                     placeholder="Search events..."
                   />
                 </div>
@@ -278,15 +339,15 @@ export function Dashboard() {
                 <input
                   ref={selectAllCheckboxRef}
                   type="checkbox"
-                  checked={selectedIds.size === events.length && events.length > 0}
+                  checked={selectedIds.size === filteredEvents.length && filteredEvents.length > 0}
                   onChange={handleSelectAll}
-                  disabled={loading || events.length === 0}
+                  disabled={loading || filteredEvents.length === 0}
                   className="h-5 w-5 text-blue-600 dark:text-blue-500 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Select all events"
                 />
                 <label
                   className="text-sm font-medium text-slate-700 dark:text-slate-300 select-none cursor-pointer"
-                  onClick={() => !loading && events.length > 0 && handleSelectAll()}
+                  onClick={() => !loading && filteredEvents.length > 0 && handleSelectAll()}
                 >
                   Select All
                 </label>
@@ -295,7 +356,7 @@ export function Dashboard() {
           </div>
 
           <EventList
-            events={events}
+            events={filteredEvents}
             selectedIds={selectedIds}
             searchQuery={searchQuery}
             onToggle={handleToggleEvent}
@@ -320,7 +381,7 @@ export function Dashboard() {
 
                   {/* Delete button */}
                   <button
-                    onClick={() => setShowDeleteModal(true)}
+                    onClick={handleDeleteModalOpen}
                     disabled={selectedIds.size === 0}
                     className="w-full px-4 py-3 text-sm font-semibold bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg transform hover:scale-105 active:scale-95 flex flex-col items-center gap-1"
                   >
@@ -348,7 +409,7 @@ export function Dashboard() {
                 </div>
               </div>
               <button
-                onClick={() => setShowDeleteModal(true)}
+                onClick={handleDeleteModalOpen}
                 className="px-6 py-3 text-sm font-semibold bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex items-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
