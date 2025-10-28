@@ -43,7 +43,16 @@ Visit: https://console.cloud.google.com/
   - **Important:** Use `calendar.events` NOT `calendar` (more restrictive = better privacy)
 - Click "UPDATE"
 - Click "SAVE AND CONTINUE"
-- Click "SAVE AND CONTINUE" again (skip test users - not needed)
+
+**Test users:**
+- Click "+ ADD USERS"
+- Enter your email address (the one you'll use to test)
+- Add any other emails you want to give access to
+- Click "ADD"
+- Click "SAVE AND CONTINUE"
+
+**Note:** While in Testing mode, only these test users can sign in (max 100). To allow anyone to use your app, you'll need to publish it later (see "Publishing the App" section at the bottom).
+
 - Click "BACK TO DASHBOARD"
 
 ### 5. Create OAuth 2.0 Credentials
@@ -137,16 +146,21 @@ You'll need to:
 - Users authorize YOUR app to access THEIR calendar
 - Each user's data is isolated (they only see their own events)
 
-## Publishing the App (Optional)
+## Publishing the App (To Allow Anyone to Use It)
 
-Initially, your OAuth consent screen is in "Testing" mode (100 user limit). To remove this:
+Initially, your OAuth consent screen is in "Testing" mode with these limitations:
+- **Only test users** you explicitly added can sign in
+- **Maximum 100 test users**
 
-1. Go to "OAuth consent screen"
+To allow ANYONE with a Google account to use your app:
+
+1. Go to "OAuth consent screen" in Google Cloud Console
 2. Click "PUBLISH APP"
-3. Submit for verification (Google reviews it)
-4. This allows unlimited users
+3. Click "Confirm"
+4. Google will review your app (can take a few days to weeks)
+5. Once approved: unlimited public access
 
-For a small personal project, Testing mode is fine!
+**For now:** Testing mode is fine to get started. You can publish later when you're ready for public use!
 
 ---
 
