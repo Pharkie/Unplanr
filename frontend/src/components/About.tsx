@@ -124,10 +124,10 @@ export function About({ onClose }: AboutProps) {
 
           {/* License */}
           <section className="pt-4 border-t border-slate-200 dark:border-slate-700">
-            <p className="text-sm text-slate-500 dark:text-slate-500">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               <strong>License:</strong> CC BY-NC-SA 4.0 (Non-commercial use only)
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-500 mt-2">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
               <strong>GitHub:</strong>{' '}
               <a
                 href="https://github.com/Pharkie/Unplanr"
