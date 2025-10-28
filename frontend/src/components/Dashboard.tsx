@@ -125,14 +125,19 @@ export function Dashboard() {
     // Don't filter if no query
     if (!searchQuery) return events;
 
-    const query = searchQuery.toLowerCase();
+    // Normalize string to remove accents for better matching (e.g., "ces" matches "César")
+    const normalizeString = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const normalizedQuery = normalizeString(searchQuery);
+
     return events.filter(event => {
       // Search in title
-      if (event.summary?.toLowerCase().includes(query)) return true;
+      if (event.summary && normalizeString(event.summary).includes(normalizedQuery)) return true;
       // Search in description
-      if (event.description && stripHtml(event.description).toLowerCase().includes(query)) return true;
+      if (event.description && normalizeString(stripHtml(event.description)).includes(normalizedQuery)) return true;
       // Search in location
-      if (event.location?.toLowerCase().includes(query)) return true;
+      if (event.location && normalizeString(event.location).includes(normalizedQuery)) return true;
       return false;
     });
   }, [events, searchQuery]);
