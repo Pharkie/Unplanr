@@ -87,6 +87,25 @@ export function LoginPage() {
                 View on GitHub
               </a>
             </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+              <a
+                href="https://github.com/Pharkie/Unplanr/blob/main/PRIVACY.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                Privacy Policy
+              </a>
+              {' • '}
+              <a
+                href="https://github.com/Pharkie/Unplanr/blob/main/TERMS.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                Terms of Service
+              </a>
+            </p>
           </div>
         </div>
       </div>
