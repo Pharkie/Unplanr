@@ -22,14 +22,14 @@ Unplanr is a web-based tool that solves one specific problem: bulk deletion of G
   - Multi-select interface for events
   - Bulk delete confirmation
 
-### Backend (`/backend`)
-- **Runtime:** Node.js with Express
+### Backend (`/api`)
+- **Runtime:** Vercel Serverless Functions
 - **Language:** TypeScript
 - **Key Responsibilities:**
   - Handle Google OAuth flow
   - Proxy requests to Google Calendar API
-  - Manage API credentials securely
-  - Rate limiting and error handling
+  - Manage API credentials securely via environment variables
+  - JWT-based authentication with httpOnly cookies
 
 ## Tech Stack Rationale
 
@@ -55,21 +55,22 @@ Unplanr is a web-based tool that solves one specific problem: bulk deletion of G
 - Tree-shaking removes unused styles
 - Easy to create clean, modern interfaces
 
-**Why separate frontend/backend?**
-- Frontend can be deployed to static hosting (Vercel, Netlify)
-- Backend handles sensitive OAuth credentials
-- Clear separation of concerns
-- Backend can be deployed to serverless functions
+**Why Vercel Serverless Functions?**
+- Zero infrastructure management
+- Automatic scaling
+- Secure environment variable handling for OAuth credentials
+- Deployed alongside frontend for low latency
 
 ## Key Integration: Google Calendar API
 
 ### Authentication Flow
 1. User clicks "Login with Google"
-2. Backend initiates OAuth flow
-3. User grants calendar permissions
-4. Backend receives OAuth tokens
-5. Frontend stores session/token
-6. Frontend makes authenticated requests through backend
+2. Frontend calls `/api/auth/google` to get OAuth URL
+3. User redirects to Google and grants calendar permissions
+4. Google redirects to `/api/auth/callback` with authorization code
+5. Serverless function exchanges code for tokens and creates JWT
+6. JWT stored in httpOnly cookie
+7. Frontend makes authenticated requests to `/api/*` endpoints
 
 ### API Operations Needed
 - List calendar events (read)
@@ -77,10 +78,10 @@ Unplanr is a web-based tool that solves one specific problem: bulk deletion of G
 - Handle pagination for large event lists
 
 ### Security Considerations
-- OAuth tokens stored securely (httpOnly cookies or backend session)
-- Never expose client secret in frontend
-- CORS properly configured
-- Rate limiting to prevent abuse
+- OAuth tokens stored in JWT within httpOnly cookies
+- Client secret stored in Vercel environment variables, never exposed to frontend
+- JWT tokens expire after 24 hours
+- All API requests require valid JWT cookie
 
 ## Development Guidelines
 
@@ -98,37 +99,34 @@ Unplanr is a web-based tool that solves one specific problem: bulk deletion of G
 src/
 ├── components/     # React components
 ├── hooks/          # Custom React hooks
-├── services/       # API calls to backend
+├── services/       # API calls to serverless functions
 ├── types/          # TypeScript type definitions
 ├── utils/          # Helper functions
 └── App.tsx         # Main app component
 ```
 
-**Backend:**
+**API (Serverless Functions):**
 ```
-src/
-├── routes/         # Express route handlers
-├── services/       # Business logic (Google API calls)
-├── middleware/     # Auth, error handling, etc.
-├── types/          # TypeScript type definitions
-└── server.ts       # Express app setup
+api/
+├── auth/           # OAuth endpoints (google.ts, callback.ts, status.ts, logout.ts)
+├── calendar/       # Calendar operations (delete.ts, events.ts)
+├── calendars/      # Calendar list endpoint
+└── lib/            # Shared utilities (googleAuth.ts, jwt.ts, middleware.ts)
 ```
 
 ### Environment Variables
 
-**Backend `.env`:**
+**Vercel Environment Variables:**
 ```
 GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
-GOOGLE_REDIRECT_URI=...
-PORT=3001
-FRONTEND_URL=http://localhost:5173
+GOOGLE_REDIRECT_URI=https://www.unplanr.com/api/auth/callback
+FRONTEND_URL=https://www.unplanr.com
+JWT_SECRET=...
+NODE_ENV=production
 ```
 
-**Frontend `.env`:**
-```
-VITE_API_URL=http://localhost:3001
-```
+**Note:** The redirect URI MUST be `/api/auth/callback` because that's where the Vercel serverless function is located.
 
 ## Future Extensibility
 
@@ -157,17 +155,17 @@ CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
 
 ## Development Status
 
-**Current Phase:** Initial setup and scaffolding
+**Current Phase:** Production
 
-**Next Steps:**
-1. Set up basic React + Vite frontend
-2. Set up basic Express + TypeScript backend
-3. Implement Google OAuth flow
-4. Create calendar event list view
-5. Implement event selection UI
-6. Add bulk delete functionality
-7. Polish UI/UX
-8. Testing and deployment
+**Completed:**
+1. ✅ React + Vite frontend with TypeScript
+2. ✅ Vercel serverless functions backend
+3. ✅ Google OAuth flow with JWT authentication
+4. ✅ Calendar event list view with multi-calendar support
+5. ✅ Event selection UI with bulk operations
+6. ✅ Bulk delete functionality
+7. ✅ Polished UI/UX with dark mode
+8. ✅ Deployed to production at www.unplanr.com
 
 ## Notes for AI Assistants
 

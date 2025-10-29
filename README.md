@@ -42,7 +42,6 @@ Unplanr/
 │   ├── auth/          # Authentication endpoints
 │   ├── calendar/      # Calendar API endpoints
 │   └── lib/           # Shared utilities
-├── backend/           # Legacy Express server (deprecated)
 ├── README.md
 ├── vercel.json        # Vercel deployment config
 ├── claude.md          # Project context for AI assistants
