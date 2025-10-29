@@ -26,9 +26,13 @@
 
       h1, h2, h3 { color: #c9d1d9; border-color: #30363d; }
 
-      table th { background: #161b22; border-color: #30363d; }
-      table td { border-color: #30363d; }
-      table tr:nth-child(even) { background: #161b22; }
+      .back-link { background: #161b22; }
+      .back-link:hover { background: #21262d; }
+
+      .warning-box {
+        background: #1e1e1e;
+        border-color: #f85149;
+      }
     }
 
     .container {
@@ -79,27 +83,6 @@
       text-decoration: underline;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1em 0;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border: 1px solid #d0d7de;
-    }
-
-    th {
-      background: #f6f8fa;
-      font-weight: 600;
-    }
-
-    tr:nth-child(even) {
-      background: #f6f8fa;
-    }
-
     strong {
       font-weight: 600;
     }
@@ -117,25 +100,49 @@
       background: #e1e4e8;
       text-decoration: none;
     }
+
+    .warning-box {
+      background: #fff8c5;
+      border-left: 4px solid #d29922;
+      padding: 16px;
+      margin: 1.5em 0;
+      border-radius: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #d0d7de;
+      margin: 2em 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      hr {
+        border-top-color: #30363d;
+      }
+    }
   </style>
 </head>
 <body>
-<div class="container">
-<a href="/" class="back-link">← Back to Unplanr</a>
-    <h1 id="terms-of-service-for-unplanr"><a class="anchor" aria-hidden="true" tabindex="-1" href="#terms-of-service-for-unplanr"><span class="octicon octicon-link"></span></a>Terms of Service for Unplanr</h1>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Unplanr</a>
+
+    <h1>Terms of Service for Unplanr</h1>
     <p><strong>Last Updated:</strong> 29 October 2025</p>
-    <h2 id="1-introduction-and-acceptance-of-terms"><a class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction-and-acceptance-of-terms"><span class="octicon octicon-link"></span></a>1. Introduction and Acceptance of Terms</h2>
-    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User" or "you") and Unplanr ("we", "us", or "our") governing your use of the Unplanr web application at <a href="http://www.unplanr.com/">www.unplanr.com</a> ("the Service").</p>
+
+    <h2>1. Introduction and Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User" or "you") and Unplanr ("we", "us", or "our") governing your use of the Unplanr web application at www.unplanr.com ("the Service").</p>
     <p>By accessing or using the Service, you confirm that:</p>
     <ul>
       <li>You accept and agree to be bound by these Terms</li>
-      <li>You have read and understood our <a href="./PRIVACY.md">Terms of Service</a></li>
+      <li>You have read and understood our <a href="/privacy.html">Privacy Policy</a></li>
       <li>You are at least 13 years of age</li>
       <li>You have the legal capacity to enter into this agreement</li>
     </ul>
     <p>If you do not agree to these Terms, you must not use the Service.</p>
-    <h2 id="2-about-the-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#2-about-the-service"><span class="octicon octicon-link"></span></a>2. About the Service</h2>
-    <h3 id="21-description"><a class="anchor" aria-hidden="true" tabindex="-1" href="#21-description"><span class="octicon octicon-link"></span></a>2.1 Description</h3>
+
+    <h2>2. About the Service</h2>
+
+    <h3>2.1 Description</h3>
     <p>Unplanr is a free, open-source web application that provides:</p>
     <ul>
       <li>Access to view your Google Calendar events</li>
@@ -143,7 +150,8 @@
       <li>The ability to select multiple calendar events</li>
       <li>Bulk deletion functionality for selected events</li>
     </ul>
-    <h3 id="22-nature-of-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#22-nature-of-service"><span class="octicon octicon-link"></span></a>2.2 Nature of Service</h3>
+
+    <h3>2.2 Nature of Service</h3>
     <p>The Service:</p>
     <ul>
       <li>Acts as an interface to your Google Calendar</li>
@@ -151,17 +159,21 @@
       <li>Requires a Google Account to function</li>
       <li>Is provided free of charge</li>
     </ul>
-    <h3 id="23-open-source"><a class="anchor" aria-hidden="true" tabindex="-1" href="#23-open-source"><span class="octicon octicon-link"></span></a>2.3 Open Source</h3>
-    <p>Unplanr is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0). The source code is available at <a href="https://github.com/Pharkie/Unplanr">https://github.com/Pharkie/Unplanr</a>.</p>
-    <h2 id="3-user-accounts-and-authentication"><a class="anchor" aria-hidden="true" tabindex="-1" href="#3-user-accounts-and-authentication"><span class="octicon octicon-link"></span></a>3. User Accounts and Authentication</h2>
-    <h3 id="31-google-account-requirement"><a class="anchor" aria-hidden="true" tabindex="-1" href="#31-google-account-requirement"><span class="octicon octicon-link"></span></a>3.1 Google Account Requirement</h3>
+
+    <h3>2.3 Open Source</h3>
+    <p>Unplanr is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0). The source code is available at <a href="https://github.com/Pharkie/Unplanr" target="_blank" rel="noopener noreferrer">https://github.com/Pharkie/Unplanr</a>.</p>
+
+    <h2>3. User Accounts and Authentication</h2>
+
+    <h3>3.1 Google Account Requirement</h3>
     <p>To use Unplanr, you must:</p>
     <ul>
       <li>Possess a valid Google Account</li>
       <li>Grant Unplanr permission to access your Google Calendar data via Google OAuth 2.0</li>
       <li>Comply with Google's Terms of Service</li>
     </ul>
-    <h3 id="32-your-responsibilities"><a class="anchor" aria-hidden="true" tabindex="-1" href="#32-your-responsibilities"><span class="octicon octicon-link"></span></a>3.2 Your Responsibilities</h3>
+
+    <h3>3.2 Your Responsibilities</h3>
     <p>You are responsible for:</p>
     <ul>
       <li>Maintaining the security of your Google Account credentials</li>
@@ -169,17 +181,21 @@
       <li>Ensuring you sign out when finished, especially on shared devices</li>
       <li>Compliance with all applicable laws when using the Service</li>
     </ul>
-    <h3 id="33-revocation-of-access"><a class="anchor" aria-hidden="true" tabindex="-1" href="#33-revocation-of-access"><span class="octicon octicon-link"></span></a>3.3 Revocation of Access</h3>
-    <p>You may revoke Unplanr's access to your Google Calendar at any time through your <a href="https://myaccount.google.com/permissions">Google Account Permissions</a>. This will immediately terminate your ability to use the Service.</p>
-    <h2 id="4-acceptable-use"><a class="anchor" aria-hidden="true" tabindex="-1" href="#4-acceptable-use"><span class="octicon octicon-link"></span></a>4. Acceptable Use</h2>
-    <h3 id="41-permitted-use"><a class="anchor" aria-hidden="true" tabindex="-1" href="#41-permitted-use"><span class="octicon octicon-link"></span></a>4.1 Permitted Use</h3>
+
+    <h3>3.3 Revocation of Access</h3>
+    <p>You may revoke Unplanr's access to your Google Calendar at any time through your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">Google Account Permissions</a>. This will immediately terminate your ability to use the Service.</p>
+
+    <h2>4. Acceptable Use</h2>
+
+    <h3>4.1 Permitted Use</h3>
     <p>You may use the Service to:</p>
     <ul>
       <li>View and manage events from calendars you own or have legitimate access to</li>
       <li>Delete events from your own calendars</li>
       <li>Filter and search your calendar events</li>
     </ul>
-    <h3 id="42-prohibited-conduct"><a class="anchor" aria-hidden="true" tabindex="-1" href="#42-prohibited-conduct"><span class="octicon octicon-link"></span></a>4.2 Prohibited Conduct</h3>
+
+    <h3>4.2 Prohibited Conduct</h3>
     <p>You must not:</p>
     <ul>
       <li>Access calendars you do not have authorisation to access</li>
@@ -192,27 +208,35 @@
       <li>Use the Service in any manner that could damage, disable, overburden, or impair the Service</li>
       <li>Interfere with any other party's use of the Service</li>
     </ul>
-    <h2 id="5-data-privacy-and-event-deletion"><a class="anchor" aria-hidden="true" tabindex="-1" href="#5-data-privacy-and-event-deletion"><span class="octicon octicon-link"></span></a>5. Data, Privacy, and Event Deletion</h2>
-    <h3 id="51-your-data-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#51-your-data-rights"><span class="octicon octicon-link"></span></a>5.1 Your Data Rights</h3>
+
+    <h2>5. Data, Privacy, and Event Deletion</h2>
+
+    <h3>5.1 Your Data Rights</h3>
     <ul>
       <li>You retain all ownership rights to your calendar data</li>
       <li>Unplanr makes no claim to ownership of your data</li>
-      <li>See our <a href="./PRIVACY.md">Terms of Service</a> for detailed information on data handling</li>
+      <li>See our <a href="/privacy.html">Privacy Policy</a> for detailed information on data handling</li>
     </ul>
-    <h3 id="52-event-deletion---important-warning"><a class="anchor" aria-hidden="true" tabindex="-1" href="#52-event-deletion---important-warning"><span class="octicon octicon-link"></span></a>5.2 Event Deletion - Important Warning</h3>
-    <p><strong>CRITICAL:</strong> Events deleted through Unplanr are <strong>permanently removed</strong> from your Google Calendar.</p>
-    <p>You acknowledge and agree that:</p>
-    <ul>
-      <li>Deletions are <strong>immediate and irreversible</strong> through Unplanr</li>
-      <li>We cannot recover deleted events</li>
-      <li>Google Calendar may provide a trash/bin feature for recovery (check your Google Calendar settings)</li>
-      <li><strong>You are solely responsible</strong> for verifying which events you select before confirming deletion</li>
-      <li>We provide confirmation dialogs, but you bear full responsibility for your actions</li>
-    </ul>
-    <h3 id="53-no-backup-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#53-no-backup-service"><span class="octicon octicon-link"></span></a>5.3 No Backup Service</h3>
+
+    <h3>5.2 Event Deletion - Important Warning</h3>
+    <div class="warning-box">
+      <p><strong>CRITICAL:</strong> Events deleted through Unplanr are <strong>permanently removed</strong> from your Google Calendar.</p>
+      <p>You acknowledge and agree that:</p>
+      <ul>
+        <li>Deletions are <strong>immediate and irreversible</strong> through Unplanr</li>
+        <li>We cannot recover deleted events</li>
+        <li>Google Calendar may provide a trash/bin feature for recovery (check your Google Calendar settings)</li>
+        <li><strong>You are solely responsible</strong> for verifying which events you select before confirming deletion</li>
+        <li>We provide confirmation dialogs, but you bear full responsibility for your actions</li>
+      </ul>
+    </div>
+
+    <h3>5.3 No Backup Service</h3>
     <p>Unplanr does not provide backup or recovery services. You should maintain your own backups of important calendar data.</p>
-    <h2 id="6-service-availability-and-modifications"><a class="anchor" aria-hidden="true" tabindex="-1" href="#6-service-availability-and-modifications"><span class="octicon octicon-link"></span></a>6. Service Availability and Modifications</h2>
-    <h3 id="61-service-availability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#61-service-availability"><span class="octicon octicon-link"></span></a>6.1 Service Availability</h3>
+
+    <h2>6. Service Availability and Modifications</h2>
+
+    <h3>6.1 Service Availability</h3>
     <p>The Service is provided "as available". We do not guarantee:</p>
     <ul>
       <li>Continuous, uninterrupted access</li>
@@ -220,7 +244,8 @@
       <li>That the Service will meet your specific requirements</li>
       <li>Availability at any particular time</li>
     </ul>
-    <h3 id="62-right-to-modify-or-discontinue"><a class="anchor" aria-hidden="true" tabindex="-1" href="#62-right-to-modify-or-discontinue"><span class="octicon octicon-link"></span></a>6.2 Right to Modify or Discontinue</h3>
+
+    <h3>6.2 Right to Modify or Discontinue</h3>
     <p>We reserve the right to:</p>
     <ul>
       <li>Modify, suspend, or discontinue the Service (or any part thereof) at any time</li>
@@ -228,22 +253,26 @@
       <li>Perform maintenance that may temporarily interrupt service</li>
     </ul>
     <p>We will attempt to provide reasonable notice of significant changes but are not obligated to do so.</p>
-    <h2 id="7-limitation-of-liability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#7-limitation-of-liability"><span class="octicon octicon-link"></span></a>7. Limitation of Liability</h2>
-    <h3 id="71-uk-consumer-rights-act-2015"><a class="anchor" aria-hidden="true" tabindex="-1" href="#71-uk-consumer-rights-act-2015"><span class="octicon octicon-link"></span></a>7.1 UK Consumer Rights Act 2015</h3>
+
+    <h2>7. Limitation of Liability</h2>
+
+    <h3>7.1 UK Consumer Rights Act 2015</h3>
     <p><strong>Nothing in these Terms excludes or limits our liability for:</strong></p>
     <ul>
       <li>Death or personal injury caused by our negligence</li>
       <li>Fraud or fraudulent misrepresentation</li>
       <li>Any matter for which it would be illegal or unlawful to exclude or limit liability</li>
     </ul>
-    <h3 id="72-liability-for-free-services"><a class="anchor" aria-hidden="true" tabindex="-1" href="#72-liability-for-free-services"><span class="octicon octicon-link"></span></a>7.2 Liability for Free Services</h3>
+
+    <h3>7.2 Liability for Free Services</h3>
     <p>Subject to Section 7.1, where the Service is provided free of charge:</p>
     <ul>
       <li>The Service is provided "as is" and "as available"</li>
       <li>We exclude all implied conditions, warranties, representations, or other terms that may apply</li>
       <li>We are not liable for any loss or damage, whether in contract, tort (including negligence), breach of statutory duty, or otherwise</li>
     </ul>
-    <h3 id="73-specific-exclusions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#73-specific-exclusions"><span class="octicon octicon-link"></span></a>7.3 Specific Exclusions</h3>
+
+    <h3>7.3 Specific Exclusions</h3>
     <p>To the extent permitted by law, we shall not be liable for:</p>
     <ul>
       <li>Loss of data or calendar events (including accidental deletions)</li>
@@ -252,10 +281,13 @@
       <li>Losses arising from your use or inability to use the Service</li>
       <li>Losses caused by factors outside our reasonable control</li>
     </ul>
-    <h3 id="74-total-liability-cap"><a class="anchor" aria-hidden="true" tabindex="-1" href="#74-total-liability-cap"><span class="octicon octicon-link"></span></a>7.4 Total Liability Cap</h3>
+
+    <h3>7.4 Total Liability Cap</h3>
     <p>Our total aggregate liability to you for any and all claims arising from your use of the Service shall not exceed £0 (zero pounds), reflecting the free nature of the Service.</p>
-    <h2 id="8-your-warranties-and-indemnity"><a class="anchor" aria-hidden="true" tabindex="-1" href="#8-your-warranties-and-indemnity"><span class="octicon octicon-link"></span></a>8. Your Warranties and Indemnity</h2>
-    <h3 id="81-your-warranties"><a class="anchor" aria-hidden="true" tabindex="-1" href="#81-your-warranties"><span class="octicon octicon-link"></span></a>8.1 Your Warranties</h3>
+
+    <h2>8. Your Warranties and Indemnity</h2>
+
+    <h3>8.1 Your Warranties</h3>
     <p>By using the Service, you warrant that:</p>
     <ul>
       <li>You have the legal right and capacity to enter into these Terms</li>
@@ -263,7 +295,8 @@
       <li>You have authority to access and delete the calendar events you choose to delete</li>
       <li>All information you provide is accurate and complete</li>
     </ul>
-    <h3 id="82-indemnity"><a class="anchor" aria-hidden="true" tabindex="-1" href="#82-indemnity"><span class="octicon octicon-link"></span></a>8.2 Indemnity</h3>
+
+    <h3>8.2 Indemnity</h3>
     <p>You agree to indemnify, defend, and hold harmless Unplanr, its developers, contributors, and affiliates from any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable legal fees) arising from:</p>
     <ul>
       <li>Your use or misuse of the Service</li>
@@ -272,26 +305,32 @@
       <li>Deletion of calendar events (whether accidental or intentional)</li>
       <li>Any breach of your warranties in Section 8.1</li>
     </ul>
-    <h2 id="9-third-party-services-and-links"><a class="anchor" aria-hidden="true" tabindex="-1" href="#9-third-party-services-and-links"><span class="octicon octicon-link"></span></a>9. Third-Party Services and Links</h2>
-    <h3 id="91-google-services"><a class="anchor" aria-hidden="true" tabindex="-1" href="#91-google-services"><span class="octicon octicon-link"></span></a>9.1 Google Services</h3>
+
+    <h2>9. Third-Party Services and Links</h2>
+
+    <h3>9.1 Google Services</h3>
     <p>The Service relies on:</p>
     <ul>
       <li>Google Calendar API</li>
       <li>Google OAuth 2.0</li>
       <li>Other Google services</li>
     </ul>
-    <p>You must comply with <a href="https://policies.google.com/terms">Google's Terms of Service</a> and <a href="https://developers.google.com/terms">Google API Terms</a>. Google's services are subject to their own terms and privacy policies.</p>
-    <h3 id="92-no-affiliation"><a class="anchor" aria-hidden="true" tabindex="-1" href="#92-no-affiliation"><span class="octicon octicon-link"></span></a>9.2 No Affiliation</h3>
+    <p>You must comply with <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Google's Terms of Service</a> and <a href="https://developers.google.com/terms" target="_blank" rel="noopener noreferrer">Google API Terms</a>. Google's services are subject to their own terms and privacy policies.</p>
+
+    <h3>9.2 No Affiliation</h3>
     <p>Unplanr is not affiliated with, endorsed by, sponsored by, or associated with Google LLC. Google Calendar and related marks are trademarks of Google LLC.</p>
-    <h3 id="93-third-party-content"><a class="anchor" aria-hidden="true" tabindex="-1" href="#93-third-party-content"><span class="octicon octicon-link"></span></a>9.3 Third-Party Content</h3>
+
+    <h3>9.3 Third-Party Content</h3>
     <p>We are not responsible for:</p>
     <ul>
       <li>The availability, accuracy, or content of third-party services</li>
       <li>Your interactions with third parties</li>
       <li>Any loss or damage arising from third-party services</li>
     </ul>
-    <h2 id="10-intellectual-property-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#10-intellectual-property-rights"><span class="octicon octicon-link"></span></a>10. Intellectual Property Rights</h2>
-    <h3 id="101-open-source-license"><a class="anchor" aria-hidden="true" tabindex="-1" href="#101-open-source-license"><span class="octicon octicon-link"></span></a>10.1 Open Source License</h3>
+
+    <h2>10. Intellectual Property Rights</h2>
+
+    <h3>10.1 Open Source License</h3>
     <p>Unplanr is licensed under <strong>CC BY-NC-SA 4.0</strong> (Creative Commons Attribution-NonCommercial-ShareAlike 4.0).</p>
     <p>This means:</p>
     <ul>
@@ -300,8 +339,9 @@
       <li>✅ You must share derivative works under the same license</li>
       <li>❌ You may NOT use it for commercial purposes without explicit permission</li>
     </ul>
-    <p>Full license terms: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">https://creativecommons.org/licenses/by-nc-sa/4.0/</a></p>
-    <h3 id="102-commercial-use-prohibited"><a class="anchor" aria-hidden="true" tabindex="-1" href="#102-commercial-use-prohibited"><span class="octicon octicon-link"></span></a>10.2 Commercial Use Prohibited</h3>
+    <p>Full license terms: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">https://creativecommons.org/licenses/by-nc-sa/4.0/</a></p>
+
+    <h3>10.2 Commercial Use Prohibited</h3>
     <p>You may not:</p>
     <ul>
       <li>Use Unplanr's code, design, name, or branding for commercial purposes</li>
@@ -309,17 +349,21 @@
       <li>Incorporate Unplanr into a commercial product or service</li>
     </ul>
     <p>For commercial licensing enquiries, contact us at <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a>.</p>
-    <h3 id="103-trademarks"><a class="anchor" aria-hidden="true" tabindex="-1" href="#103-trademarks"><span class="octicon octicon-link"></span></a>10.3 Trademarks</h3>
+
+    <h3>10.3 Trademarks</h3>
     <p>"Unplanr" and associated branding are our intellectual property. You may not use them without permission except as allowed under the CC BY-NC-SA 4.0 license.</p>
-    <h2 id="11-termination"><a class="anchor" aria-hidden="true" tabindex="-1" href="#11-termination"><span class="octicon octicon-link"></span></a>11. Termination</h2>
-    <h3 id="111-termination-by-you"><a class="anchor" aria-hidden="true" tabindex="-1" href="#111-termination-by-you"><span class="octicon octicon-link"></span></a>11.1 Termination by You</h3>
+
+    <h2>11. Termination</h2>
+
+    <h3>11.1 Termination by You</h3>
     <p>You may terminate your use of the Service at any time by:</p>
     <ul>
       <li>Signing out of the application</li>
-      <li>Revoking access via <a href="https://myaccount.google.com/permissions">Google Account Permissions</a></li>
+      <li>Revoking access via <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">Google Account Permissions</a></li>
       <li>Ceasing to use the Service</li>
     </ul>
-    <h3 id="112-termination-by-us"><a class="anchor" aria-hidden="true" tabindex="-1" href="#112-termination-by-us"><span class="octicon octicon-link"></span></a>11.2 Termination by Us</h3>
+
+    <h3>11.2 Termination by Us</h3>
     <p>We reserve the right to:</p>
     <ul>
       <li>Suspend or terminate your access immediately without notice</li>
@@ -332,31 +376,42 @@
       <li>Abusive, fraudulent, or illegal activity</li>
       <li>Risk to the security or integrity of the Service</li>
     </ul>
-    <h3 id="113-effect-of-termination"><a class="anchor" aria-hidden="true" tabindex="-1" href="#113-effect-of-termination"><span class="octicon octicon-link"></span></a>11.3 Effect of Termination</h3>
+
+    <h3>11.3 Effect of Termination</h3>
     <p>Upon termination:</p>
     <ul>
       <li>Your right to use the Service immediately ceases</li>
       <li>Your session data will be deleted</li>
       <li>Sections that by their nature should survive (including liability limitations, indemnities, and dispute resolution) will continue to apply</li>
     </ul>
-    <h2 id="12-governing-law-and-jurisdiction"><a class="anchor" aria-hidden="true" tabindex="-1" href="#12-governing-law-and-jurisdiction"><span class="octicon octicon-link"></span></a>12. Governing Law and Jurisdiction</h2>
-    <h3 id="121-applicable-law"><a class="anchor" aria-hidden="true" tabindex="-1" href="#121-applicable-law"><span class="octicon octicon-link"></span></a>12.1 Applicable Law</h3>
+
+    <h2>12. Governing Law and Jurisdiction</h2>
+
+    <h3>12.1 Applicable Law</h3>
     <p>These Terms are governed by and construed in accordance with the laws of <strong>England and Wales</strong>.</p>
     <p>The UN Convention on Contracts for the International Sale of Goods does not apply.</p>
-    <h3 id="122-jurisdiction"><a class="anchor" aria-hidden="true" tabindex="-1" href="#122-jurisdiction"><span class="octicon octicon-link"></span></a>12.2 Jurisdiction</h3>
+
+    <h3>12.2 Jurisdiction</h3>
     <p>Subject to Section 12.3, the courts of England and Wales have exclusive jurisdiction to resolve any dispute or claim arising from these Terms or your use of the Service.</p>
-    <h3 id="123-consumer-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#123-consumer-rights"><span class="octicon octicon-link"></span></a>12.3 Consumer Rights</h3>
+
+    <h3>12.3 Consumer Rights</h3>
     <p>If you are a consumer, nothing in Section 12.2 affects your statutory rights to bring proceedings in your local jurisdiction.</p>
-    <h2 id="13-dispute-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#13-dispute-resolution"><span class="octicon octicon-link"></span></a>13. Dispute Resolution</h2>
-    <h3 id="131-informal-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#131-informal-resolution"><span class="octicon octicon-link"></span></a>13.1 Informal Resolution</h3>
+
+    <h2>13. Dispute Resolution</h2>
+
+    <h3>13.1 Informal Resolution</h3>
     <p>Before commencing any legal proceedings, we encourage you to contact us at <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a> to seek an informal resolution.</p>
-    <h3 id="132-alternative-dispute-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#132-alternative-dispute-resolution"><span class="octicon octicon-link"></span></a>13.2 Alternative Dispute Resolution</h3>
+
+    <h3>13.2 Alternative Dispute Resolution</h3>
     <p>If you are a consumer based in the EU or UK, you may also be able to use the European Commission's Online Dispute Resolution (ODR) platform or UK-based mediation services.</p>
-    <h2 id="14-consumer-rights-uk-consumer-rights-act-2015"><a class="anchor" aria-hidden="true" tabindex="-1" href="#14-consumer-rights-uk-consumer-rights-act-2015"><span class="octicon octicon-link"></span></a>14. Consumer Rights (UK Consumer Rights Act 2015)</h2>
+
+    <h2>14. Consumer Rights (UK Consumer Rights Act 2015)</h2>
     <p>If you are a consumer based in the UK:</p>
-    <h3 id="141-your-statutory-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#141-your-statutory-rights"><span class="octicon octicon-link"></span></a>14.1 Your Statutory Rights</h3>
+
+    <h3>14.1 Your Statutory Rights</h3>
     <p>Nothing in these Terms affects your statutory rights under the Consumer Rights Act 2015 or other consumer protection legislation. These rights are in addition to any rights given by these Terms.</p>
-    <h3 id="142-digital-content"><a class="anchor" aria-hidden="true" tabindex="-1" href="#142-digital-content"><span class="octicon octicon-link"></span></a>14.2 Digital Content</h3>
+
+    <h3>14.2 Digital Content</h3>
     <p>Where the Service constitutes "digital content" under the Consumer Rights Act 2015:</p>
     <ul>
       <li>We will provide it with reasonable care and skill</li>
@@ -364,63 +419,73 @@
       <li>It should be fit for purpose</li>
     </ul>
     <p>However, as the Service is provided free of charge, certain Consumer Rights Act remedies may not apply.</p>
-    <h2 id="15-changes-to-these-terms"><a class="anchor" aria-hidden="true" tabindex="-1" href="#15-changes-to-these-terms"><span class="octicon octicon-link"></span></a>15. Changes to These Terms</h2>
-    <h3 id="151-right-to-modify"><a class="anchor" aria-hidden="true" tabindex="-1" href="#151-right-to-modify"><span class="octicon octicon-link"></span></a>15.1 Right to Modify</h3>
-    <p>We may modify these Terms at any time. Changes will be effective immediately upon posting to <a href="http://www.unplanr.com/">www.unplanr.com</a> or the GitHub repository.</p>
-    <h3 id="152-notice-of-changes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#152-notice-of-changes"><span class="octicon octicon-link"></span></a>15.2 Notice of Changes</h3>
+
+    <h2>15. Changes to These Terms</h2>
+
+    <h3>15.1 Right to Modify</h3>
+    <p>We may modify these Terms at any time. Changes will be effective immediately upon posting to www.unplanr.com or the GitHub repository.</p>
+
+    <h3>15.2 Notice of Changes</h3>
     <p>We will indicate material changes by:</p>
     <ul>
       <li>Updating the "Last Updated" date at the top of these Terms</li>
       <li>Displaying a notice on the Service (where practicable)</li>
     </ul>
-    <h3 id="153-acceptance-of-changes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#153-acceptance-of-changes"><span class="octicon octicon-link"></span></a>15.3 Acceptance of Changes</h3>
+
+    <h3>15.3 Acceptance of Changes</h3>
     <p>Your continued use of the Service after changes are posted constitutes acceptance of the modified Terms. If you do not agree to the changes, you must stop using the Service.</p>
-    <h2 id="16-general-provisions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#16-general-provisions"><span class="octicon octicon-link"></span></a>16. General Provisions</h2>
-    <h3 id="161-entire-agreement"><a class="anchor" aria-hidden="true" tabindex="-1" href="#161-entire-agreement"><span class="octicon octicon-link"></span></a>16.1 Entire Agreement</h3>
-    <p>These Terms, together with our Terms of Service, constitute the entire agreement between you and Unplanr regarding the Service and supersede all prior agreements.</p>
-    <h3 id="162-severability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#162-severability"><span class="octicon octicon-link"></span></a>16.2 Severability</h3>
+
+    <h2>16. General Provisions</h2>
+
+    <h3>16.1 Entire Agreement</h3>
+    <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Unplanr regarding the Service and supersede all prior agreements.</p>
+
+    <h3>16.2 Severability</h3>
     <p>If any provision of these Terms is found to be invalid, unlawful, or unenforceable by a court of competent jurisdiction, that provision shall be deemed severed, and the remaining provisions shall remain in full force and effect.</p>
-    <h3 id="163-waiver"><a class="anchor" aria-hidden="true" tabindex="-1" href="#163-waiver"><span class="octicon octicon-link"></span></a>16.3 Waiver</h3>
+
+    <h3>16.3 Waiver</h3>
     <p>Our failure to enforce any right or provision of these Terms does not constitute a waiver of that right or provision.</p>
-    <h3 id="164-assignment"><a class="anchor" aria-hidden="true" tabindex="-1" href="#164-assignment"><span class="octicon octicon-link"></span></a>16.4 Assignment</h3>
+
+    <h3>16.4 Assignment</h3>
     <p>You may not assign or transfer these Terms or your rights under them without our prior written consent. We may assign or transfer these Terms without restriction.</p>
-    <h3 id="165-no-partnership"><a class="anchor" aria-hidden="true" tabindex="-1" href="#165-no-partnership"><span class="octicon octicon-link"></span></a>16.5 No Partnership</h3>
+
+    <h3>16.5 No Partnership</h3>
     <p>Nothing in these Terms creates any partnership, joint venture, agency, or employment relationship between you and us.</p>
-    <h3 id="166-force-majeure"><a class="anchor" aria-hidden="true" tabindex="-1" href="#166-force-majeure"><span class="octicon octicon-link"></span></a>16.6 Force Majeure</h3>
+
+    <h3>16.6 Force Majeure</h3>
     <p>We shall not be liable for any failure or delay in performing our obligations under these Terms where such failure or delay results from circumstances beyond our reasonable control.</p>
-    <h2 id="17-contact-information"><a class="anchor" aria-hidden="true" tabindex="-1" href="#17-contact-information"><span class="octicon octicon-link"></span></a>17. Contact Information</h2>
+
+    <h2>17. Contact Information</h2>
     <p>For questions, concerns, or notices regarding these Terms, please contact us:</p>
     <p>
-      <strong>Email:</strong> <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a>
-      <strong>GitHub:</strong> <a href="https://github.com/Pharkie/Unplanr/issues">https://github.com/Pharkie/Unplanr/issues</a>
+      <strong>Email:</strong> <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a><br>
+      <strong>GitHub:</strong> <a href="https://github.com/Pharkie/Unplanr/issues" target="_blank" rel="noopener noreferrer">https://github.com/Pharkie/Unplanr/issues</a>
     </p>
     <p>We aim to respond to all enquiries within 5 working days.</p>
-    <h2 id="18-acknowledgment-and-acceptance"><a class="anchor" aria-hidden="true" tabindex="-1" href="#18-acknowledgment-and-acceptance"><span class="octicon octicon-link"></span></a>18. Acknowledgment and Acceptance</h2>
-    <p>By using Unplanr, you acknowledge that:</p>
-    <p>
-      ✅ You have read and understood these Terms and our Terms of Service
-      ✅ You agree to be bound by these Terms
-      ✅ You understand that deleted events cannot be recovered through Unplanr
-      ✅ You are solely responsible for verifying which events you select for deletion
-      ✅ The Service is provided free of charge and "as is"
-      ✅ You will comply with all applicable laws when using the Service
-    </p>
-    <hr>
-    <p><strong>⚠️ IMPORTANT REMINDER</strong></p>
-    <p>With great power comes great responsibility. Unplanr gives you the power to delete multiple calendar events at once.</p>
-    <p><strong>Always double-check your selection before confirming deletions.</strong></p>
-    <p><strong>Deletions are permanent and irreversible.</strong></p>
-    <hr>
-    <p><strong>Unplanr is a free, open-source project provided for your convenience. Use it wisely.</strong></p>
-    <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
 
-function copied(target, str) {
-  target.classList.add('active');
-  copyTextToClipboard(target.dataset.code, function() {
-    setTimeout(() => {
-      target.classList.remove('active');
-    }, 2000);
-  });
-}</script>
-  </div></div></body></html>
+    <h2>18. Acknowledgment and Acceptance</h2>
+    <p>By using Unplanr, you acknowledge that:</p>
+    <ul>
+      <li>✅ You have read and understood these Terms and our Privacy Policy</li>
+      <li>✅ You agree to be bound by these Terms</li>
+      <li>✅ You understand that deleted events cannot be recovered through Unplanr</li>
+      <li>✅ You are solely responsible for verifying which events you select for deletion</li>
+      <li>✅ The Service is provided free of charge and "as is"</li>
+      <li>✅ You will comply with all applicable laws when using the Service</li>
+    </ul>
+
+    <hr>
+
+    <div class="warning-box">
+      <p><strong>⚠️ IMPORTANT REMINDER</strong></p>
+      <p>With great power comes great responsibility. Unplanr gives you the power to delete multiple calendar events at once.</p>
+      <p><strong>Always double-check your selection before confirming deletions.</strong></p>
+      <p><strong>Deletions are permanent and irreversible.</strong></p>
+    </div>
+
+    <hr>
+
+    <p><strong>Unplanr is a free, open-source project provided for your convenience. Use it wisely.</strong></p>
+  </div>
+</body>
+</html>
