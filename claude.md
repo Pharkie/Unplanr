@@ -247,3 +247,23 @@ git push
 **Additional Notes:**
 - There is NO local development environment - deploy directly to Vercel for testing
 - Never suggest "test locally"
+
+## UI/UX Layout Considerations
+
+### Ko-fi Widget Integration
+The site uses a Ko-fi floating widget (loaded via script in `index.html`) that appears as a "Tip Me" button in the bottom left corner.
+
+**CRITICAL LAYOUT RULE:**
+- The Ko-fi button occupies approximately 100px of space in the bottom left corner on both mobile and desktop
+- **NEVER** override the Ko-fi widget's z-index or attempt to place UI elements on top of it
+- **DO** account for the Ko-fi button when designing bottom-positioned UI elements
+- **DO** position important information and interactive elements to the right side to avoid overlap
+
+**Mobile Bottom Drawer:**
+- Uses `justify-end` to push content (selection count, delete button) to the right
+- Leaves the left ~100px clear for Ko-fi button
+- Bottom margin (`mb-24`) is applied OUTSIDE the rounded container, not inside, for cleaner appearance
+
+**Desktop Sidebar:**
+- Positioned on the right side, naturally avoids Ko-fi button
+- No special considerations needed
