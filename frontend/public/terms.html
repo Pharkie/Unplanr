@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>frontend</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+[data-color-mode*='light'], [data-color-mode*='light'] body, .markdown-style[theme*='light'] { --color-prettylights-syntax-comment: #6e7781; --color-prettylights-syntax-constant: #0550ae; --color-prettylights-syntax-entity: #8250df; --color-prettylights-syntax-storage-modifier-import: #24292f; --color-prettylights-syntax-entity-tag: #116329; --color-prettylights-syntax-keyword: #cf222e; --color-prettylights-syntax-string: #0a3069; --color-prettylights-syntax-variable: #953800; --color-prettylights-syntax-brackethighlighter-unmatched: #82071e; --color-prettylights-syntax-invalid-illegal-text: #f6f8fa; --color-prettylights-syntax-invalid-illegal-bg: #82071e; --color-prettylights-syntax-carriage-return-text: #f6f8fa; --color-prettylights-syntax-carriage-return-bg: #cf222e; --color-prettylights-syntax-string-regexp: #116329; --color-prettylights-syntax-markup-list: #3b2300; --color-prettylights-syntax-markup-heading: #0550ae; --color-prettylights-syntax-markup-italic: #24292f; --color-prettylights-syntax-markup-bold: #24292f; --color-prettylights-syntax-markup-deleted-text: #82071e; --color-prettylights-syntax-markup-deleted-bg: #FFEBE9; --color-prettylights-syntax-markup-inserted-text: #116329; --color-prettylights-syntax-markup-inserted-bg: #dafbe1; --color-prettylights-syntax-markup-changed-text: #953800; --color-prettylights-syntax-markup-changed-bg: #ffd8b5; --color-prettylights-syntax-markup-ignored-text: #eaeef2; --color-prettylights-syntax-markup-ignored-bg: #0550ae; --color-prettylights-syntax-meta-diff-range: #8250df; --color-prettylights-syntax-brackethighlighter-angle: #57606a; --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f; --color-prettylights-syntax-constant-other-reference-link: #0a3069; --color-fg-default: #24292f; --color-fg-muted: #57606a; --color-fg-subtle: #6e7781; --color-canvas-default: #ffffff; --color-canvas-subtle: #f6f8fa; --color-border-default: #d0d7de; --color-border-muted: hsla(210,18%,87%,1); --color-neutral-muted: rgba(175,184,193,0.2); --color-accent-fg: #0969da; --color-accent-emphasis: #0969da; --color-attention-subtle: #fff8c5; --color-danger-fg: #cf222e; }
+[data-color-mode*='dark'], [data-color-mode*='dark'] body, .markdown-style[theme*='dark'] { --color-prettylights-syntax-comment: #8b949e; --color-prettylights-syntax-constant: #79c0ff; --color-prettylights-syntax-entity: #d2a8ff; --color-prettylights-syntax-storage-modifier-import: #c9d1d9; --color-prettylights-syntax-entity-tag: #7ee787; --color-prettylights-syntax-keyword: #ff7b72; --color-prettylights-syntax-string: #a5d6ff; --color-prettylights-syntax-variable: #ffa657; --color-prettylights-syntax-brackethighlighter-unmatched: #f85149; --color-prettylights-syntax-invalid-illegal-text: #f0f6fc; --color-prettylights-syntax-invalid-illegal-bg: #8e1519; --color-prettylights-syntax-carriage-return-text: #f0f6fc; --color-prettylights-syntax-carriage-return-bg: #b62324; --color-prettylights-syntax-string-regexp: #7ee787; --color-prettylights-syntax-markup-list: #f2cc60; --color-prettylights-syntax-markup-heading: #1f6feb; --color-prettylights-syntax-markup-italic: #c9d1d9; --color-prettylights-syntax-markup-bold: #c9d1d9; --color-prettylights-syntax-markup-deleted-text: #ffdcd7; --color-prettylights-syntax-markup-deleted-bg: #67060c; --color-prettylights-syntax-markup-inserted-text: #aff5b4; --color-prettylights-syntax-markup-inserted-bg: #033a16; --color-prettylights-syntax-markup-changed-text: #ffdfb6; --color-prettylights-syntax-markup-changed-bg: #5a1e02; --color-prettylights-syntax-markup-ignored-text: #c9d1d9; --color-prettylights-syntax-markup-ignored-bg: #1158c7; --color-prettylights-syntax-meta-diff-range: #d2a8ff; --color-prettylights-syntax-brackethighlighter-angle: #8b949e; --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58; --color-prettylights-syntax-constant-other-reference-link: #a5d6ff; --color-fg-default: #c9d1d9; --color-fg-muted: #8b949e; --color-fg-subtle: #484f58; --color-canvas-default: #0d1117; --color-canvas-subtle: #161b22; --color-border-default: #30363d; --color-border-muted: #21262d; --color-neutral-muted: rgba(110,118,129,0.4); --color-accent-fg: #58a6ff; --color-accent-emphasis: #1f6feb; --color-attention-subtle: rgba(187,128,9,0.15); --color-danger-fg: #f85149; }
+.markdown-style { display: block; -webkit-text-size-adjust: 100%; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"; font-size: 16px; line-height: 1.5; word-wrap: break-word; color: var(--color-fg-default); background-color: var(--color-canvas-default); } .markdown-style details, .markdown-style figcaption, .markdown-style figure { display: block; } .markdown-style summary { display: list-item; } .markdown-style [hidden] { display: none !important; } .markdown-style a { background-color: transparent; color: var(--color-accent-fg); text-decoration: none; } .markdown-style a:active, .markdown-style a:hover { outline-width: 0; } .markdown-style abbr[title] { border-bottom: none; text-decoration: underline dotted; } .markdown-style b, .markdown-style strong { font-weight: 600; } .markdown-style dfn { font-style: italic; } .markdown-style h1 { margin: .67em 0; font-weight: 600; padding-bottom: .3em; font-size: 2em; border-bottom: 1px solid var(--color-border-muted); } .markdown-style mark { background-color: var(--color-attention-subtle); color: var(--color-text-primary); } .markdown-style small { font-size: 90%; } .markdown-style sub, .markdown-style sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; } .markdown-style sub { bottom: -0.25em; } .markdown-style sup { top: -0.5em; } .markdown-style img { border-style: none; max-width: 100%; box-sizing: content-box; background-color: var(--color-canvas-default); } .markdown-style code, .markdown-style kbd, .markdown-style pre, .markdown-style samp { font-family: monospace,monospace; font-size: 1em; } .markdown-style figure { margin: 1em 40px; } .markdown-style hr { box-sizing: content-box; overflow: hidden; background: transparent; border-bottom: 1px solid var(--color-border-muted); height: .25em; padding: 0; margin: 24px 0; background-color: var(--color-border-default); border: 0; } .markdown-style input { font: inherit; margin: 0; overflow: visible; font-family: inherit; font-size: inherit; line-height: inherit; } .markdown-style [type=button], .markdown-style [type=reset], .markdown-style [type=submit] { -webkit-appearance: button; } .markdown-style [type=button]::-moz-focus-inner, .markdown-style [type=reset]::-moz-focus-inner, .markdown-style [type=submit]::-moz-focus-inner { border-style: none; padding: 0; } .markdown-style [type=button]:-moz-focusring, .markdown-style [type=reset]:-moz-focusring, .markdown-style [type=submit]:-moz-focusring { outline: 1px dotted ButtonText; } .markdown-style [type=checkbox], .markdown-style [type=radio] { box-sizing: border-box; padding: 0; } .markdown-style [type=number]::-webkit-inner-spin-button, .markdown-style [type=number]::-webkit-outer-spin-button { height: auto; } .markdown-style [type=search] { -webkit-appearance: textfield; outline-offset: -2px; } .markdown-style [type=search]::-webkit-search-cancel-button, .markdown-style [type=search]::-webkit-search-decoration { -webkit-appearance: none; } .markdown-style ::-webkit-input-placeholder { color: inherit; opacity: .54; } .markdown-style ::-webkit-file-upload-button { -webkit-appearance: button; font: inherit; } .markdown-style a:hover { text-decoration: underline; } .markdown-style hr::before { display: table; content: ""; } .markdown-style hr::after { display: table; clear: both; content: ""; } .markdown-style table { border-spacing: 0; border-collapse: collapse; display: block; width: max-content; max-width: 100%; overflow: auto; } .markdown-style td, .markdown-style th { padding: 0; } .markdown-style details summary { cursor: pointer; } .markdown-style details:not([open])>*:not(summary) { display: none !important; } .markdown-style kbd { display: inline-block; padding: 3px 5px; font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace; line-height: 10px; color: var(--color-fg-default); vertical-align: middle; background-color: var(--color-canvas-subtle); border: solid 1px var(--color-neutral-muted); border-bottom-color: var(--color-neutral-muted); border-radius: 6px; box-shadow: inset 0 -1px 0 var(--color-neutral-muted); } .markdown-style h1, .markdown-style h2, .markdown-style h3, .markdown-style h4, .markdown-style h5, .markdown-style h6 { margin-top: 24px; margin-bottom: 16px; font-weight: 600; line-height: 1.25; } .markdown-style h2 { font-weight: 600; padding-bottom: .3em; font-size: 1.5em; border-bottom: 1px solid var(--color-border-muted); } .markdown-style h3 { font-weight: 600; font-size: 1.25em; } .markdown-style h4 { font-weight: 600; font-size: 1em; } .markdown-style h5 { font-weight: 600; font-size: .875em; } .markdown-style h6 { font-weight: 600; font-size: .85em; color: var(--color-fg-muted); } .markdown-style p { margin-top: 0; margin-bottom: 10px; } .markdown-style blockquote { margin: 0; padding: 0 1em; color: var(--color-fg-muted); border-left: .25em solid var(--color-border-default); } .markdown-style ul, .markdown-style ol { margin-top: 0; margin-bottom: 0; padding-left: 2em; } .markdown-style ol ol, .markdown-style ul ol { list-style-type: lower-roman; } .markdown-style ul ul ol, .markdown-style ul ol ol, .markdown-style ol ul ol, .markdown-style ol ol ol { list-style-type: lower-alpha; } .markdown-style dd { margin-left: 0; } .markdown-style tt, .markdown-style code { font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace; font-size: 12px; } .markdown-style pre { margin-top: 0; margin-bottom: 0; font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace; font-size: 12px; word-wrap: normal; } .markdown-style .octicon { display: inline-block; overflow: visible !important; vertical-align: text-bottom; fill: currentColor; } .markdown-style ::placeholder { color: var(--color-fg-subtle); opacity: 1; } .markdown-style input::-webkit-outer-spin-button, .markdown-style input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; appearance: none; }
+.markdown-style .token.comment, .markdown-style .token.prolog, .markdown-style .token.doctype, .markdown-style .token.cdata { color: var(--color-prettylights-syntax-comment); } .markdown-style .token.namespace { opacity: 0.7; } .markdown-style .token.tag, .markdown-style .token.selector, .markdown-style .token.constant, .markdown-style .token.symbol, .markdown-style .token.deleted { color: var(--color-prettylights-syntax-entity-tag); } .markdown-style .token.maybe-class-name { color: var(--color-prettylights-syntax-variable); } .markdown-style .token.property-access, .markdown-style .token.operator, .markdown-style .token.boolean, .markdown-style .token.number, .markdown-style .token.selector .markdown-style .token.class, .markdown-style .token.attr-name, .markdown-style .token.string, .markdown-style .token.char, .markdown-style .token.builtin { color: var(--color-prettylights-syntax-constant); } .markdown-style .token.deleted { color: var(--color-prettylights-syntax-markup-deleted-text); } .markdown-style .token.property { color: var(--color-prettylights-syntax-constant); } .markdown-style .token.punctuation { color: var(--color-prettylights-syntax-markup-bold); } .markdown-style .token.function { color: var(--color-prettylights-syntax-entity); } .markdown-style .code-line .token.deleted { background-color: var(--color-prettylights-syntax-markup-deleted-bg); } .markdown-style .token.inserted { color: var(--color-prettylights-syntax-markup-inserted-text); } .markdown-style .code-line .token.inserted { background-color: var(--color-prettylights-syntax-markup-inserted-bg); } .markdown-style .token.variable { color: var(--color-prettylights-syntax-constant); } .markdown-style .token.entity, .markdown-style .token.url, .language-css .markdown-style .token.string, .style .markdown-style .token.string { color: var(--color-prettylights-syntax-string); } .markdown-style .token.color, .markdown-style .token.atrule, .markdown-style .token.attr-value, .markdown-style .token.function, .markdown-style .token.class-name { color: var(--color-prettylights-syntax-string); } .markdown-style .token.rule, .markdown-style .token.regex, .markdown-style .token.important, .markdown-style .token.keyword { color: var(--color-prettylights-syntax-keyword); } .markdown-style .token.coord { color: var(--color-prettylights-syntax-meta-diff-range); } .markdown-style .token.important, .markdown-style .token.bold { font-weight: bold; } .markdown-style .token.italic { font-style: italic; } .markdown-style .token.entity { cursor: help; }
+.markdown-style [data-catalyst] { display: block; } .markdown-style g-emoji { font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"; font-size: 1em; font-style: normal !important; font-weight: 400; line-height: 1; vertical-align: -0.075em; } .markdown-style g-emoji img { width: 1em; height: 1em; } .markdown-style::before { display: table; content: ""; } .markdown-style::after { display: table; clear: both; content: ""; } .markdown-style>*:first-child { margin-top: 0 !important; } .markdown-style>*:last-child { margin-bottom: 0 !important; } .markdown-style a:not([href]) { color: inherit; text-decoration: none; } .markdown-style .absent { color: var(--color-danger-fg); } .markdown-style a.anchor { float: left; padding-right: 4px; margin-left: -20px; line-height: 1; } .markdown-style a.anchor:focus { outline: none; } .markdown-style p, .markdown-style blockquote, .markdown-style ul, .markdown-style ol, .markdown-style dl, .markdown-style table, .markdown-style pre, .markdown-style details { margin-top: 0; margin-bottom: 16px; } .markdown-style blockquote>:first-child { margin-top: 0; } .markdown-style blockquote>:last-child { margin-bottom: 0; } .markdown-style sup>a::before { content: "["; } .markdown-style sup>a::after { content: "]"; }
+.markdown-style .octicon-video { border: 1px solid #d0d7de !important; border-radius: 6px !important; display: block; } .markdown-style .octicon-video summary { border-bottom: 1px solid #d0d7de !important; padding: 8px 16px !important; cursor: pointer; } .markdown-style .octicon-video > video { display: block !important; max-width: 100% !important; padding: 2px; box-sizing: border-box; border-bottom-right-radius: 6px !important; border-bottom-left-radius: 6px !important; } .markdown-style details.octicon-video:not([open])>*:not(summary) { display: none !important; } .markdown-style details.octicon-video:not([open]) > summary { border-bottom: 0 !important; } .markdown-style h1 .octicon-link, .markdown-style h2 .octicon-link, .markdown-style h3 .octicon-link, .markdown-style h4 .octicon-link, .markdown-style h5 .octicon-link, .markdown-style h6 .octicon-link { color: var(--color-fg-default); vertical-align: middle; visibility: hidden; } .markdown-style h1:hover .anchor, .markdown-style h2:hover .anchor, .markdown-style h3:hover .anchor, .markdown-style h4:hover .anchor, .markdown-style h5:hover .anchor, .markdown-style h6:hover .anchor { text-decoration: none; } .markdown-style h1:hover .anchor .octicon-link, .markdown-style h2:hover .anchor .octicon-link, .markdown-style h3:hover .anchor .octicon-link, .markdown-style h4:hover .anchor .octicon-link, .markdown-style h5:hover .anchor .octicon-link, .markdown-style h6:hover .anchor .octicon-link { visibility: visible; } .markdown-style h1 tt, .markdown-style h1 code, .markdown-style h2 tt, .markdown-style h2 code, .markdown-style h3 tt, .markdown-style h3 code, .markdown-style h4 tt, .markdown-style h4 code, .markdown-style h5 tt, .markdown-style h5 code, .markdown-style h6 tt, .markdown-style h6 code { padding: 0 .2em; font-size: inherit; } .markdown-style ul.no-list, .markdown-style ol.no-list { padding: 0; list-style-type: none; } .markdown-style ol[type="1"] { list-style-type: decimal; } .markdown-style ol[type=a] { list-style-type: lower-alpha; } .markdown-style ol[type=i] { list-style-type: lower-roman; } .markdown-style div>ol:not([type]) { list-style-type: decimal; } .markdown-style ul ul, .markdown-style ul ol, .markdown-style ol ol, .markdown-style ol ul { margin-top: 0; margin-bottom: 0; } .markdown-style li>p { margin-top: 16px; } .markdown-style li+li { margin-top: .25em; } .markdown-style dl { padding: 0; } .markdown-style dl dt { padding: 0; margin-top: 16px; font-size: 1em; font-style: italic; font-weight: 600; } .markdown-style dl dd { padding: 0 16px; margin-bottom: 16px; } .markdown-style table th { font-weight: 600; } .markdown-style table th, .markdown-style table td { padding: 6px 13px; border: 1px solid var(--color-border-default); } .markdown-style table tr { background-color: var(--color-canvas-default); border-top: 1px solid var(--color-border-muted); } .markdown-style table tr:nth-child(2n) { background-color: var(--color-canvas-subtle); } .markdown-style table img { background-color: transparent; vertical-align: middle; } .markdown-style img[align=right] { padding-left: 20px; } .markdown-style img[align=left] { padding-right: 20px; } .markdown-style .emoji { max-width: none; vertical-align: text-top; background-color: transparent; } .markdown-style span.frame { display: block; overflow: hidden; } .markdown-style span.frame>span { display: block; float: left; width: auto; padding: 7px; margin: 13px 0 0; overflow: hidden; border: 1px solid var(--color-border-default); } .markdown-style span.frame span img { display: block; float: left; } .markdown-style span.frame span span { display: block; padding: 5px 0 0; clear: both; color: var(--color-fg-default); } .markdown-style span.align-center { display: block; overflow: hidden; clear: both; } .markdown-style span.align-center>span { display: block; margin: 13px auto 0; overflow: hidden; text-align: center; } .markdown-style span.align-center span img { margin: 0 auto; text-align: center; } .markdown-style span.align-right { display: block; overflow: hidden; clear: both; } .markdown-style span.align-right>span { display: block; margin: 13px 0 0; overflow: hidden; text-align: right; } .markdown-style span.align-right span img { margin: 0; text-align: right; } .markdown-style span.float-left { display: block; float: left; margin-right: 13px; overflow: hidden; } .markdown-style span.float-left span { margin: 13px 0 0; } .markdown-style span.float-right { display: block; float: right; margin-left: 13px; overflow: hidden; } .markdown-style span.float-right>span { display: block; margin: 13px auto 0; overflow: hidden; text-align: right; } .markdown-style code, .markdown-style tt { padding: .2em .4em; margin: 0; font-size: 85%; background-color: var(--color-neutral-muted); border-radius: 6px; } .markdown-style code br, .markdown-style tt br { display: none; } .markdown-style del code { text-decoration: inherit; } .markdown-style pre code { font-size: 100%; } .markdown-style pre>code { padding: 0; margin: 0; word-break: normal; white-space: pre; background: transparent; border: 0; } .markdown-style pre { position: relative; font-size: 85%; line-height: 1.45; background-color: var(--color-canvas-subtle); border-radius: 6px; } .markdown-style pre code, .markdown-style pre tt { display: inline; max-width: auto; padding: 0; margin: 0; overflow: visible; line-height: inherit; word-wrap: normal; background-color: transparent; border: 0; } .markdown-style pre > code { padding: 16px; overflow: auto; display: block; } .markdown-style .csv-data td, .markdown-style .csv-data th { padding: 5px; overflow: hidden; font-size: 12px; line-height: 1; text-align: left; white-space: nowrap; } .markdown-style .csv-data .blob-num { padding: 10px 8px 9px; text-align: right; background: var(--color-canvas-default); border: 0; } .markdown-style .csv-data tr { border-top: 0; } .markdown-style .csv-data th { font-weight: 600; background: var(--color-canvas-subtle); border-top: 0; } .markdown-style .footnotes { font-size: 12px; color: var(--color-fg-muted); border-top: 1px solid var(--color-border-default); } .markdown-style .footnotes ol { padding-left: 16px; } .markdown-style .footnotes li { position: relative; } .markdown-style .footnotes li:target::before { position: absolute; top: -8px; right: -8px; bottom: -8px; left: -24px; pointer-events: none; content: ""; border: 2px solid var(--color-accent-emphasis); border-radius: 6px; } .markdown-style .footnotes li:target { color: var(--color-fg-default); } .markdown-style .footnotes .data-footnote-backref g-emoji { font-family: monospace; } .markdown-style .task-list-item { list-style-type: none; } .markdown-style .task-list-item label { font-weight: 400; } .markdown-style .task-list-item.enabled label { cursor: pointer; } .markdown-style .task-list-item+.task-list-item { margin-top: 3px; } .markdown-style .task-list-item .handle { display: none; } .markdown-style .task-list-item-checkbox, .markdown-style input[type="checkbox"] { margin: 0 .2em .25em -1.6em; vertical-align: middle; } .markdown-style .contains-task-list:dir(rtl) .task-list-item-checkbox, .markdown-style .contains-task-list:dir(rtl) input[type="checkbox"] { margin: 0 -1.6em .25em .2em; } .markdown-style ::-webkit-calendar-picker-indicator { filter: invert(50%); }
+
+/** copy button style **/
+.markdown-style pre .copied {
+  display: flex;
+  position: absolute;
+  cursor: pointer;
+  color: #a5afbb;
+  top: 6px;
+  right: 6px;
+  border-radius: 5px;
+  background: #82828226;
+  padding: 6px;
+  font-size: 12px;
+  transition: all .3s;
+}
+.markdown-style pre .copied:not(.active) { visibility: hidden; }
+.markdown-style pre:hover .copied { visibility: visible; }
+.markdown-style pre:hover .copied:hover { background: #4caf50; color: #fff; }
+.markdown-style pre:hover .copied:active,
+.markdown-style pre .copied.active { background: #2e9b33; color: #fff; }
+.markdown-style pre .copied svg { position: relative; }
+.markdown-style pre .copied .octicon-copy { display: block; }
+.markdown-style pre .copied .octicon-check { display: none; }
+.markdown-style pre .active .octicon-copy { display: none; }
+.markdown-style pre .active .octicon-check { display: block; }
+
+/** octicon style **/
+.markdown-style h1:hover a.anchor .octicon-link:before,
+.markdown-style h2:hover a.anchor .octicon-link:before,
+.markdown-style h3:hover a.anchor .octicon-link:before,
+.markdown-style h4:hover a.anchor .octicon-link:before,
+.markdown-style h5:hover a.anchor .octicon-link:before,
+.markdown-style h6:hover a.anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.markdown-style ::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+  height: 8px;
+}
+
+.markdown-style ::-webkit-scrollbar-thumb {
+  background: var(--color-fg-muted);
+  border-radius: 10px;
+}
+</style>
+  </head>
+  <body><dark-mode style="position: fixed; top: 8px; left: 10px; z-index: 999;" dark="Dark" light="Light" permanent="true"></dark-mode><script>const t=document;const e="_dark_mode_theme_";const s="permanent";const o="colorschemechange";const i="permanentcolorscheme";const h="light";const r="dark";const n=(t,e,s=e)=>{Object.defineProperty(t,s,{enumerable:true,get(){const t=this.getAttribute(e);return t===null?"":t},set(t){this.setAttribute(e,t)}})};const c=(t,e,s=e)=>{Object.defineProperty(t,s,{enumerable:true,get(){return this.hasAttribute(e)},set(t){if(t){this.setAttribute(e,"")}else{this.removeAttribute(e)}}})};class a extends HTMLElement{static get observedAttributes(){return["mode",h,r,s]}LOCAL_NANE=e;constructor(){super();this.t()}connectedCallback(){n(this,"mode");n(this,r);n(this,h);c(this,s);const a=localStorage.getItem(e);if(a&&[h,r].includes(a)){this.mode=a;this.permanent=true}if(this.permanent&&!a){localStorage.setItem(e,this.mode)}const l=[h,r].includes(a);if(this.permanent&&a){this.o()}else{if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){this.mode=r;this.o()}if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches){this.mode=h;this.o()}}if(!this.permanent&&!l){window.matchMedia("(prefers-color-scheme: light)").onchange=t=>{this.mode=t.matches?h:r;this.o()};window.matchMedia("(prefers-color-scheme: dark)").onchange=t=>{this.mode=t.matches?r:h;this.o()}}const d=new MutationObserver(((s,h)=>{this.mode=t.documentElement.dataset.colorMode;if(this.permanent&&l){localStorage.setItem(e,this.mode);this.i(i,{permanent:this.permanent})}this.h();this.i(o,{colorScheme:this.mode})}));d.observe(t.documentElement,{attributes:true});this.i(o,{colorScheme:this.mode});this.h()}attributeChangedCallback(t,s,o){if(t==="mode"&&s!==o&&[h,r].includes(o)){const t=localStorage.getItem(e);if(this.mode===t){this.mode=o;this.h();this.o()}else if(this.mode&&this.mode!==t){this.h();this.o()}}else if((t===h||t===r)&&s!==o){this.h()}if(t==="permanent"&&typeof this.permanent==="boolean"){this.permanent?localStorage.setItem(e,this.mode):localStorage.removeItem(e)}}o(){t.documentElement.setAttribute("data-color-mode",this.mode)}h(){this.icon.textContent=this.mode===h?"🌒":"🌞";this.text.textContent=this.mode===h?this.getAttribute(r):this.getAttribute(h);if(!this.text.textContent&&this.text.parentElement&&this.text){this.text.parentElement.removeChild(this.text)}}t(){var s=this.attachShadow({mode:"open"});this.label=t.createElement("span");this.label.setAttribute("class","wrapper");this.label.onclick=()=>{this.mode=this.mode===h?r:h;if(this.permanent){localStorage.setItem(e,this.mode)}this.o();this.h()};s.appendChild(this.label);this.icon=t.createElement("span");this.icon.part="icon";this.label.appendChild(this.icon);this.text=t.createElement("span");this.text.part="text";this.label.appendChild(this.text);const o=`
+[data-color-mode*='dark'], [data-color-mode*='dark'] body {
+  color-scheme: dark;
+  --color-theme-bg: #0d1117;
+  --color-theme-text: #c9d1d9;
+  background-color: var(--color-theme-bg);
+  color: var(--color-theme-text);
+}
+
+[data-color-mode*='light'], [data-color-mode*='light'] body {
+  color-scheme: light;
+  --color-theme-bg: #fff;
+  --color-theme-text: #24292f;
+  background-color: var(--color-theme-bg);
+  color: var(--color-theme-text);
+}`;const i="_dark_mode_style_";const n=t.getElementById(i);if(!n){var c=t.createElement("style");c.id=i;c.textContent=o;t.head.appendChild(c)}var a=t.createElement("style");a.textContent=`
+    .wrapper { cursor: pointer; user-select: none; position: relative; }
+    .wrapper > span + span { margin-left: .4rem; }
+    `;s.appendChild(a)}i(t,e){this.dispatchEvent(new CustomEvent(t,{bubbles:true,composed:true,detail:e}))}}customElements.define("dark-mode",a);</script><div style="max-width: 960px; margin: 0 auto 60px auto; padding: 8px;max-width: 960px;" class="markdown-style">
+    <h1 id="terms-of-service-for-unplanr"><a class="anchor" aria-hidden="true" tabindex="-1" href="#terms-of-service-for-unplanr"><span class="octicon octicon-link"></span></a>Terms of Service for Unplanr</h1>
+    <p><strong>Last Updated:</strong> 29 October 2025</p>
+    <h2 id="1-introduction-and-acceptance-of-terms"><a class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction-and-acceptance-of-terms"><span class="octicon octicon-link"></span></a>1. Introduction and Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User" or "you") and Unplanr ("we", "us", or "our") governing your use of the Unplanr web application at <a href="http://www.unplanr.com/">www.unplanr.com</a> ("the Service").</p>
+    <p>By accessing or using the Service, you confirm that:</p>
+    <ul>
+      <li>You accept and agree to be bound by these Terms</li>
+      <li>You have read and understood our <a href="./PRIVACY.md">Privacy Policy</a></li>
+      <li>You are at least 13 years of age</li>
+      <li>You have the legal capacity to enter into this agreement</li>
+    </ul>
+    <p>If you do not agree to these Terms, you must not use the Service.</p>
+    <h2 id="2-about-the-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#2-about-the-service"><span class="octicon octicon-link"></span></a>2. About the Service</h2>
+    <h3 id="21-description"><a class="anchor" aria-hidden="true" tabindex="-1" href="#21-description"><span class="octicon octicon-link"></span></a>2.1 Description</h3>
+    <p>Unplanr is a free, open-source web application that provides:</p>
+    <ul>
+      <li>Access to view your Google Calendar events</li>
+      <li>Tools to filter events by date range and search criteria</li>
+      <li>The ability to select multiple calendar events</li>
+      <li>Bulk deletion functionality for selected events</li>
+    </ul>
+    <h3 id="22-nature-of-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#22-nature-of-service"><span class="octicon octicon-link"></span></a>2.2 Nature of Service</h3>
+    <p>The Service:</p>
+    <ul>
+      <li>Acts as an interface to your Google Calendar</li>
+      <li>Does not permanently store your calendar data</li>
+      <li>Requires a Google Account to function</li>
+      <li>Is provided free of charge</li>
+    </ul>
+    <h3 id="23-open-source"><a class="anchor" aria-hidden="true" tabindex="-1" href="#23-open-source"><span class="octicon octicon-link"></span></a>2.3 Open Source</h3>
+    <p>Unplanr is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0). The source code is available at <a href="https://github.com/Pharkie/Unplanr">https://github.com/Pharkie/Unplanr</a>.</p>
+    <h2 id="3-user-accounts-and-authentication"><a class="anchor" aria-hidden="true" tabindex="-1" href="#3-user-accounts-and-authentication"><span class="octicon octicon-link"></span></a>3. User Accounts and Authentication</h2>
+    <h3 id="31-google-account-requirement"><a class="anchor" aria-hidden="true" tabindex="-1" href="#31-google-account-requirement"><span class="octicon octicon-link"></span></a>3.1 Google Account Requirement</h3>
+    <p>To use Unplanr, you must:</p>
+    <ul>
+      <li>Possess a valid Google Account</li>
+      <li>Grant Unplanr permission to access your Google Calendar data via Google OAuth 2.0</li>
+      <li>Comply with Google's Terms of Service</li>
+    </ul>
+    <h3 id="32-your-responsibilities"><a class="anchor" aria-hidden="true" tabindex="-1" href="#32-your-responsibilities"><span class="octicon octicon-link"></span></a>3.2 Your Responsibilities</h3>
+    <p>You are responsible for:</p>
+    <ul>
+      <li>Maintaining the security of your Google Account credentials</li>
+      <li>All activities that occur under your authenticated session</li>
+      <li>Ensuring you sign out when finished, especially on shared devices</li>
+      <li>Compliance with all applicable laws when using the Service</li>
+    </ul>
+    <h3 id="33-revocation-of-access"><a class="anchor" aria-hidden="true" tabindex="-1" href="#33-revocation-of-access"><span class="octicon octicon-link"></span></a>3.3 Revocation of Access</h3>
+    <p>You may revoke Unplanr's access to your Google Calendar at any time through your <a href="https://myaccount.google.com/permissions">Google Account Permissions</a>. This will immediately terminate your ability to use the Service.</p>
+    <h2 id="4-acceptable-use"><a class="anchor" aria-hidden="true" tabindex="-1" href="#4-acceptable-use"><span class="octicon octicon-link"></span></a>4. Acceptable Use</h2>
+    <h3 id="41-permitted-use"><a class="anchor" aria-hidden="true" tabindex="-1" href="#41-permitted-use"><span class="octicon octicon-link"></span></a>4.1 Permitted Use</h3>
+    <p>You may use the Service to:</p>
+    <ul>
+      <li>View and manage events from calendars you own or have legitimate access to</li>
+      <li>Delete events from your own calendars</li>
+      <li>Filter and search your calendar events</li>
+    </ul>
+    <h3 id="42-prohibited-conduct"><a class="anchor" aria-hidden="true" tabindex="-1" href="#42-prohibited-conduct"><span class="octicon octicon-link"></span></a>4.2 Prohibited Conduct</h3>
+    <p>You must not:</p>
+    <ul>
+      <li>Access calendars you do not have authorisation to access</li>
+      <li>Delete events from calendars owned by others without proper authorisation</li>
+      <li>Use the Service for any unlawful purpose</li>
+      <li>Attempt to reverse engineer, decompile, or disassemble any part of the Service</li>
+      <li>Use automated tools (bots, scripts, scrapers) to abuse or overload the Service</li>
+      <li>Circumvent any security features or access controls</li>
+      <li>Violate Google's Terms of Service or API Terms</li>
+      <li>Use the Service in any manner that could damage, disable, overburden, or impair the Service</li>
+      <li>Interfere with any other party's use of the Service</li>
+    </ul>
+    <h2 id="5-data-privacy-and-event-deletion"><a class="anchor" aria-hidden="true" tabindex="-1" href="#5-data-privacy-and-event-deletion"><span class="octicon octicon-link"></span></a>5. Data, Privacy, and Event Deletion</h2>
+    <h3 id="51-your-data-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#51-your-data-rights"><span class="octicon octicon-link"></span></a>5.1 Your Data Rights</h3>
+    <ul>
+      <li>You retain all ownership rights to your calendar data</li>
+      <li>Unplanr makes no claim to ownership of your data</li>
+      <li>See our <a href="./PRIVACY.md">Privacy Policy</a> for detailed information on data handling</li>
+    </ul>
+    <h3 id="52-event-deletion---important-warning"><a class="anchor" aria-hidden="true" tabindex="-1" href="#52-event-deletion---important-warning"><span class="octicon octicon-link"></span></a>5.2 Event Deletion - Important Warning</h3>
+    <p><strong>CRITICAL:</strong> Events deleted through Unplanr are <strong>permanently removed</strong> from your Google Calendar.</p>
+    <p>You acknowledge and agree that:</p>
+    <ul>
+      <li>Deletions are <strong>immediate and irreversible</strong> through Unplanr</li>
+      <li>We cannot recover deleted events</li>
+      <li>Google Calendar may provide a trash/bin feature for recovery (check your Google Calendar settings)</li>
+      <li><strong>You are solely responsible</strong> for verifying which events you select before confirming deletion</li>
+      <li>We provide confirmation dialogs, but you bear full responsibility for your actions</li>
+    </ul>
+    <h3 id="53-no-backup-service"><a class="anchor" aria-hidden="true" tabindex="-1" href="#53-no-backup-service"><span class="octicon octicon-link"></span></a>5.3 No Backup Service</h3>
+    <p>Unplanr does not provide backup or recovery services. You should maintain your own backups of important calendar data.</p>
+    <h2 id="6-service-availability-and-modifications"><a class="anchor" aria-hidden="true" tabindex="-1" href="#6-service-availability-and-modifications"><span class="octicon octicon-link"></span></a>6. Service Availability and Modifications</h2>
+    <h3 id="61-service-availability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#61-service-availability"><span class="octicon octicon-link"></span></a>6.1 Service Availability</h3>
+    <p>The Service is provided "as available". We do not guarantee:</p>
+    <ul>
+      <li>Continuous, uninterrupted access</li>
+      <li>Error-free operation</li>
+      <li>That the Service will meet your specific requirements</li>
+      <li>Availability at any particular time</li>
+    </ul>
+    <h3 id="62-right-to-modify-or-discontinue"><a class="anchor" aria-hidden="true" tabindex="-1" href="#62-right-to-modify-or-discontinue"><span class="octicon octicon-link"></span></a>6.2 Right to Modify or Discontinue</h3>
+    <p>We reserve the right to:</p>
+    <ul>
+      <li>Modify, suspend, or discontinue the Service (or any part thereof) at any time</li>
+      <li>Change these Terms at any time (see Section 15)</li>
+      <li>Perform maintenance that may temporarily interrupt service</li>
+    </ul>
+    <p>We will attempt to provide reasonable notice of significant changes but are not obligated to do so.</p>
+    <h2 id="7-limitation-of-liability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#7-limitation-of-liability"><span class="octicon octicon-link"></span></a>7. Limitation of Liability</h2>
+    <h3 id="71-uk-consumer-rights-act-2015"><a class="anchor" aria-hidden="true" tabindex="-1" href="#71-uk-consumer-rights-act-2015"><span class="octicon octicon-link"></span></a>7.1 UK Consumer Rights Act 2015</h3>
+    <p><strong>Nothing in these Terms excludes or limits our liability for:</strong></p>
+    <ul>
+      <li>Death or personal injury caused by our negligence</li>
+      <li>Fraud or fraudulent misrepresentation</li>
+      <li>Any matter for which it would be illegal or unlawful to exclude or limit liability</li>
+    </ul>
+    <h3 id="72-liability-for-free-services"><a class="anchor" aria-hidden="true" tabindex="-1" href="#72-liability-for-free-services"><span class="octicon octicon-link"></span></a>7.2 Liability for Free Services</h3>
+    <p>Subject to Section 7.1, where the Service is provided free of charge:</p>
+    <ul>
+      <li>The Service is provided "as is" and "as available"</li>
+      <li>We exclude all implied conditions, warranties, representations, or other terms that may apply</li>
+      <li>We are not liable for any loss or damage, whether in contract, tort (including negligence), breach of statutory duty, or otherwise</li>
+    </ul>
+    <h3 id="73-specific-exclusions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#73-specific-exclusions"><span class="octicon octicon-link"></span></a>7.3 Specific Exclusions</h3>
+    <p>To the extent permitted by law, we shall not be liable for:</p>
+    <ul>
+      <li>Loss of data or calendar events (including accidental deletions)</li>
+      <li>Loss of profits, revenue, or business opportunities</li>
+      <li>Indirect or consequential losses</li>
+      <li>Losses arising from your use or inability to use the Service</li>
+      <li>Losses caused by factors outside our reasonable control</li>
+    </ul>
+    <h3 id="74-total-liability-cap"><a class="anchor" aria-hidden="true" tabindex="-1" href="#74-total-liability-cap"><span class="octicon octicon-link"></span></a>7.4 Total Liability Cap</h3>
+    <p>Our total aggregate liability to you for any and all claims arising from your use of the Service shall not exceed £0 (zero pounds), reflecting the free nature of the Service.</p>
+    <h2 id="8-your-warranties-and-indemnity"><a class="anchor" aria-hidden="true" tabindex="-1" href="#8-your-warranties-and-indemnity"><span class="octicon octicon-link"></span></a>8. Your Warranties and Indemnity</h2>
+    <h3 id="81-your-warranties"><a class="anchor" aria-hidden="true" tabindex="-1" href="#81-your-warranties"><span class="octicon octicon-link"></span></a>8.1 Your Warranties</h3>
+    <p>By using the Service, you warrant that:</p>
+    <ul>
+      <li>You have the legal right and capacity to enter into these Terms</li>
+      <li>You will comply with all applicable laws and regulations</li>
+      <li>You have authority to access and delete the calendar events you choose to delete</li>
+      <li>All information you provide is accurate and complete</li>
+    </ul>
+    <h3 id="82-indemnity"><a class="anchor" aria-hidden="true" tabindex="-1" href="#82-indemnity"><span class="octicon octicon-link"></span></a>8.2 Indemnity</h3>
+    <p>You agree to indemnify, defend, and hold harmless Unplanr, its developers, contributors, and affiliates from any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable legal fees) arising from:</p>
+    <ul>
+      <li>Your use or misuse of the Service</li>
+      <li>Your violation of these Terms</li>
+      <li>Your violation of any rights of another party</li>
+      <li>Deletion of calendar events (whether accidental or intentional)</li>
+      <li>Any breach of your warranties in Section 8.1</li>
+    </ul>
+    <h2 id="9-third-party-services-and-links"><a class="anchor" aria-hidden="true" tabindex="-1" href="#9-third-party-services-and-links"><span class="octicon octicon-link"></span></a>9. Third-Party Services and Links</h2>
+    <h3 id="91-google-services"><a class="anchor" aria-hidden="true" tabindex="-1" href="#91-google-services"><span class="octicon octicon-link"></span></a>9.1 Google Services</h3>
+    <p>The Service relies on:</p>
+    <ul>
+      <li>Google Calendar API</li>
+      <li>Google OAuth 2.0</li>
+      <li>Other Google services</li>
+    </ul>
+    <p>You must comply with <a href="https://policies.google.com/terms">Google's Terms of Service</a> and <a href="https://developers.google.com/terms">Google API Terms</a>. Google's services are subject to their own terms and privacy policies.</p>
+    <h3 id="92-no-affiliation"><a class="anchor" aria-hidden="true" tabindex="-1" href="#92-no-affiliation"><span class="octicon octicon-link"></span></a>9.2 No Affiliation</h3>
+    <p>Unplanr is not affiliated with, endorsed by, sponsored by, or associated with Google LLC. Google Calendar and related marks are trademarks of Google LLC.</p>
+    <h3 id="93-third-party-content"><a class="anchor" aria-hidden="true" tabindex="-1" href="#93-third-party-content"><span class="octicon octicon-link"></span></a>9.3 Third-Party Content</h3>
+    <p>We are not responsible for:</p>
+    <ul>
+      <li>The availability, accuracy, or content of third-party services</li>
+      <li>Your interactions with third parties</li>
+      <li>Any loss or damage arising from third-party services</li>
+    </ul>
+    <h2 id="10-intellectual-property-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#10-intellectual-property-rights"><span class="octicon octicon-link"></span></a>10. Intellectual Property Rights</h2>
+    <h3 id="101-open-source-license"><a class="anchor" aria-hidden="true" tabindex="-1" href="#101-open-source-license"><span class="octicon octicon-link"></span></a>10.1 Open Source License</h3>
+    <p>Unplanr is licensed under <strong>CC BY-NC-SA 4.0</strong> (Creative Commons Attribution-NonCommercial-ShareAlike 4.0).</p>
+    <p>This means:</p>
+    <ul>
+      <li>✅ You may view, fork, and modify the source code for personal or educational use</li>
+      <li>✅ You must provide attribution to Unplanr</li>
+      <li>✅ You must share derivative works under the same license</li>
+      <li>❌ You may NOT use it for commercial purposes without explicit permission</li>
+    </ul>
+    <p>Full license terms: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">https://creativecommons.org/licenses/by-nc-sa/4.0/</a></p>
+    <h3 id="102-commercial-use-prohibited"><a class="anchor" aria-hidden="true" tabindex="-1" href="#102-commercial-use-prohibited"><span class="octicon octicon-link"></span></a>10.2 Commercial Use Prohibited</h3>
+    <p>You may not:</p>
+    <ul>
+      <li>Use Unplanr's code, design, name, or branding for commercial purposes</li>
+      <li>Charge fees for access to a derivative work</li>
+      <li>Incorporate Unplanr into a commercial product or service</li>
+    </ul>
+    <p>For commercial licensing enquiries, contact us at <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a>.</p>
+    <h3 id="103-trademarks"><a class="anchor" aria-hidden="true" tabindex="-1" href="#103-trademarks"><span class="octicon octicon-link"></span></a>10.3 Trademarks</h3>
+    <p>"Unplanr" and associated branding are our intellectual property. You may not use them without permission except as allowed under the CC BY-NC-SA 4.0 license.</p>
+    <h2 id="11-termination"><a class="anchor" aria-hidden="true" tabindex="-1" href="#11-termination"><span class="octicon octicon-link"></span></a>11. Termination</h2>
+    <h3 id="111-termination-by-you"><a class="anchor" aria-hidden="true" tabindex="-1" href="#111-termination-by-you"><span class="octicon octicon-link"></span></a>11.1 Termination by You</h3>
+    <p>You may terminate your use of the Service at any time by:</p>
+    <ul>
+      <li>Signing out of the application</li>
+      <li>Revoking access via <a href="https://myaccount.google.com/permissions">Google Account Permissions</a></li>
+      <li>Ceasing to use the Service</li>
+    </ul>
+    <h3 id="112-termination-by-us"><a class="anchor" aria-hidden="true" tabindex="-1" href="#112-termination-by-us"><span class="octicon octicon-link"></span></a>11.2 Termination by Us</h3>
+    <p>We reserve the right to:</p>
+    <ul>
+      <li>Suspend or terminate your access immediately without notice</li>
+      <li>Block access from specific IP addresses or regions</li>
+      <li>Remove content that violates these Terms</li>
+    </ul>
+    <p>Grounds for termination include (but are not limited to):</p>
+    <ul>
+      <li>Breach of these Terms</li>
+      <li>Abusive, fraudulent, or illegal activity</li>
+      <li>Risk to the security or integrity of the Service</li>
+    </ul>
+    <h3 id="113-effect-of-termination"><a class="anchor" aria-hidden="true" tabindex="-1" href="#113-effect-of-termination"><span class="octicon octicon-link"></span></a>11.3 Effect of Termination</h3>
+    <p>Upon termination:</p>
+    <ul>
+      <li>Your right to use the Service immediately ceases</li>
+      <li>Your session data will be deleted</li>
+      <li>Sections that by their nature should survive (including liability limitations, indemnities, and dispute resolution) will continue to apply</li>
+    </ul>
+    <h2 id="12-governing-law-and-jurisdiction"><a class="anchor" aria-hidden="true" tabindex="-1" href="#12-governing-law-and-jurisdiction"><span class="octicon octicon-link"></span></a>12. Governing Law and Jurisdiction</h2>
+    <h3 id="121-applicable-law"><a class="anchor" aria-hidden="true" tabindex="-1" href="#121-applicable-law"><span class="octicon octicon-link"></span></a>12.1 Applicable Law</h3>
+    <p>These Terms are governed by and construed in accordance with the laws of <strong>England and Wales</strong>.</p>
+    <p>The UN Convention on Contracts for the International Sale of Goods does not apply.</p>
+    <h3 id="122-jurisdiction"><a class="anchor" aria-hidden="true" tabindex="-1" href="#122-jurisdiction"><span class="octicon octicon-link"></span></a>12.2 Jurisdiction</h3>
+    <p>Subject to Section 12.3, the courts of England and Wales have exclusive jurisdiction to resolve any dispute or claim arising from these Terms or your use of the Service.</p>
+    <h3 id="123-consumer-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#123-consumer-rights"><span class="octicon octicon-link"></span></a>12.3 Consumer Rights</h3>
+    <p>If you are a consumer, nothing in Section 12.2 affects your statutory rights to bring proceedings in your local jurisdiction.</p>
+    <h2 id="13-dispute-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#13-dispute-resolution"><span class="octicon octicon-link"></span></a>13. Dispute Resolution</h2>
+    <h3 id="131-informal-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#131-informal-resolution"><span class="octicon octicon-link"></span></a>13.1 Informal Resolution</h3>
+    <p>Before commencing any legal proceedings, we encourage you to contact us at <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a> to seek an informal resolution.</p>
+    <h3 id="132-alternative-dispute-resolution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#132-alternative-dispute-resolution"><span class="octicon octicon-link"></span></a>13.2 Alternative Dispute Resolution</h3>
+    <p>If you are a consumer based in the EU or UK, you may also be able to use the European Commission's Online Dispute Resolution (ODR) platform or UK-based mediation services.</p>
+    <h2 id="14-consumer-rights-uk-consumer-rights-act-2015"><a class="anchor" aria-hidden="true" tabindex="-1" href="#14-consumer-rights-uk-consumer-rights-act-2015"><span class="octicon octicon-link"></span></a>14. Consumer Rights (UK Consumer Rights Act 2015)</h2>
+    <p>If you are a consumer based in the UK:</p>
+    <h3 id="141-your-statutory-rights"><a class="anchor" aria-hidden="true" tabindex="-1" href="#141-your-statutory-rights"><span class="octicon octicon-link"></span></a>14.1 Your Statutory Rights</h3>
+    <p>Nothing in these Terms affects your statutory rights under the Consumer Rights Act 2015 or other consumer protection legislation. These rights are in addition to any rights given by these Terms.</p>
+    <h3 id="142-digital-content"><a class="anchor" aria-hidden="true" tabindex="-1" href="#142-digital-content"><span class="octicon octicon-link"></span></a>14.2 Digital Content</h3>
+    <p>Where the Service constitutes "digital content" under the Consumer Rights Act 2015:</p>
+    <ul>
+      <li>We will provide it with reasonable care and skill</li>
+      <li>It should be as described</li>
+      <li>It should be fit for purpose</li>
+    </ul>
+    <p>However, as the Service is provided free of charge, certain Consumer Rights Act remedies may not apply.</p>
+    <h2 id="15-changes-to-these-terms"><a class="anchor" aria-hidden="true" tabindex="-1" href="#15-changes-to-these-terms"><span class="octicon octicon-link"></span></a>15. Changes to These Terms</h2>
+    <h3 id="151-right-to-modify"><a class="anchor" aria-hidden="true" tabindex="-1" href="#151-right-to-modify"><span class="octicon octicon-link"></span></a>15.1 Right to Modify</h3>
+    <p>We may modify these Terms at any time. Changes will be effective immediately upon posting to <a href="http://www.unplanr.com/">www.unplanr.com</a> or the GitHub repository.</p>
+    <h3 id="152-notice-of-changes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#152-notice-of-changes"><span class="octicon octicon-link"></span></a>15.2 Notice of Changes</h3>
+    <p>We will indicate material changes by:</p>
+    <ul>
+      <li>Updating the "Last Updated" date at the top of these Terms</li>
+      <li>Displaying a notice on the Service (where practicable)</li>
+    </ul>
+    <h3 id="153-acceptance-of-changes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#153-acceptance-of-changes"><span class="octicon octicon-link"></span></a>15.3 Acceptance of Changes</h3>
+    <p>Your continued use of the Service after changes are posted constitutes acceptance of the modified Terms. If you do not agree to the changes, you must stop using the Service.</p>
+    <h2 id="16-general-provisions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#16-general-provisions"><span class="octicon octicon-link"></span></a>16. General Provisions</h2>
+    <h3 id="161-entire-agreement"><a class="anchor" aria-hidden="true" tabindex="-1" href="#161-entire-agreement"><span class="octicon octicon-link"></span></a>16.1 Entire Agreement</h3>
+    <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Unplanr regarding the Service and supersede all prior agreements.</p>
+    <h3 id="162-severability"><a class="anchor" aria-hidden="true" tabindex="-1" href="#162-severability"><span class="octicon octicon-link"></span></a>16.2 Severability</h3>
+    <p>If any provision of these Terms is found to be invalid, unlawful, or unenforceable by a court of competent jurisdiction, that provision shall be deemed severed, and the remaining provisions shall remain in full force and effect.</p>
+    <h3 id="163-waiver"><a class="anchor" aria-hidden="true" tabindex="-1" href="#163-waiver"><span class="octicon octicon-link"></span></a>16.3 Waiver</h3>
+    <p>Our failure to enforce any right or provision of these Terms does not constitute a waiver of that right or provision.</p>
+    <h3 id="164-assignment"><a class="anchor" aria-hidden="true" tabindex="-1" href="#164-assignment"><span class="octicon octicon-link"></span></a>16.4 Assignment</h3>
+    <p>You may not assign or transfer these Terms or your rights under them without our prior written consent. We may assign or transfer these Terms without restriction.</p>
+    <h3 id="165-no-partnership"><a class="anchor" aria-hidden="true" tabindex="-1" href="#165-no-partnership"><span class="octicon octicon-link"></span></a>16.5 No Partnership</h3>
+    <p>Nothing in these Terms creates any partnership, joint venture, agency, or employment relationship between you and us.</p>
+    <h3 id="166-force-majeure"><a class="anchor" aria-hidden="true" tabindex="-1" href="#166-force-majeure"><span class="octicon octicon-link"></span></a>16.6 Force Majeure</h3>
+    <p>We shall not be liable for any failure or delay in performing our obligations under these Terms where such failure or delay results from circumstances beyond our reasonable control.</p>
+    <h2 id="17-contact-information"><a class="anchor" aria-hidden="true" tabindex="-1" href="#17-contact-information"><span class="octicon octicon-link"></span></a>17. Contact Information</h2>
+    <p>For questions, concerns, or notices regarding these Terms, please contact us:</p>
+    <p>
+      <strong>Email:</strong> <a href="mailto:canal.parsley796@therapymind.mailer.me">canal.parsley796@therapymind.mailer.me</a>
+      <strong>GitHub:</strong> <a href="https://github.com/Pharkie/Unplanr/issues">https://github.com/Pharkie/Unplanr/issues</a>
+    </p>
+    <p>We aim to respond to all enquiries within 5 working days.</p>
+    <h2 id="18-acknowledgment-and-acceptance"><a class="anchor" aria-hidden="true" tabindex="-1" href="#18-acknowledgment-and-acceptance"><span class="octicon octicon-link"></span></a>18. Acknowledgment and Acceptance</h2>
+    <p>By using Unplanr, you acknowledge that:</p>
+    <p>
+      ✅ You have read and understood these Terms and our Privacy Policy
+      ✅ You agree to be bound by these Terms
+      ✅ You understand that deleted events cannot be recovered through Unplanr
+      ✅ You are solely responsible for verifying which events you select for deletion
+      ✅ The Service is provided free of charge and "as is"
+      ✅ You will comply with all applicable laws when using the Service
+    </p>
+    <hr>
+    <p><strong>⚠️ IMPORTANT REMINDER</strong></p>
+    <p>With great power comes great responsibility. Unplanr gives you the power to delete multiple calendar events at once.</p>
+    <p><strong>Always double-check your selection before confirming deletions.</strong></p>
+    <p><strong>Deletions are permanent and irreversible.</strong></p>
+    <hr>
+    <p><strong>Unplanr is a free, open-source project provided for your convenience. Use it wisely.</strong></p>
+    <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
+!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
+
+function copied(target, str) {
+  target.classList.add('active');
+  copyTextToClipboard(target.dataset.code, function() {
+    setTimeout(() => {
+      target.classList.remove('active');
+    }, 2000);
+  });
+}</script>
+  </div></body>
+</html>

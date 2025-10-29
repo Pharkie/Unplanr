@@ -89,7 +89,7 @@ export function LoginPage() {
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               <a
-                href="https://github.com/Pharkie/Unplanr/blob/main/PRIVACY.md"
+                href="/privacy.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
@@ -98,7 +98,7 @@ export function LoginPage() {
               </a>
               {' • '}
               <a
-                href="https://github.com/Pharkie/Unplanr/blob/main/TERMS.md"
+                href="/terms.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
