@@ -8,10 +8,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { code } = req.query;
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+  // Get the origin from the request (handles both production and local dev)
+  const origin = req.headers.origin || `https://${req.headers.host}`;
 
   if (!code || typeof code !== 'string') {
-    return res.redirect(`${frontendUrl}?error=no_code`);
+    return res.redirect(`${origin}?error=no_code`);
   }
 
   try {
@@ -25,17 +27,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const jwt = await createToken(userData);
 
-    // Set httpOnly cookie
+    // Set httpOnly cookie (Secure flag auto-detected from HTTPS)
+    const isSecure = origin.startsWith('https://');
     res.setHeader('Set-Cookie', [
       `auth=${jwt}; HttpOnly; Path=/; Max-Age=${24 * 60 * 60}; SameSite=Lax${
-        process.env.NODE_ENV === 'production' ? '; Secure' : ''
+        isSecure ? '; Secure' : ''
       }`,
     ]);
 
-    // Redirect to frontend
-    res.redirect(`${frontendUrl}?auth=success`);
+    // Redirect back to the origin
+    res.redirect(`${origin}?auth=success`);
   } catch (error: any) {
     console.error('OAuth callback error:', error);
-    res.redirect(`${frontendUrl}?error=auth_failed`);
+    res.redirect(`${origin}?error=auth_failed`);
   }
 }

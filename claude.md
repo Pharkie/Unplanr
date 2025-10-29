@@ -121,12 +121,10 @@ api/
 GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
 GOOGLE_REDIRECT_URI=https://www.unplanr.com/api/auth/callback
-FRONTEND_URL=https://www.unplanr.com
 JWT_SECRET=...
-NODE_ENV=production
 ```
 
-**Note:** The redirect URI MUST be `/api/auth/callback` because that's where the Vercel serverless function is located.
+**Note:** The redirect URI must match what's configured in Google Cloud Console. Frontend URL and HTTPS detection are automatically determined from request headers.
 
 ## Future Extensibility
 
