@@ -295,7 +295,7 @@ export function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Upcoming Events</h2>
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Your Events</h2>
                     <button
                       onClick={handleRefresh}
                       disabled={loading}
@@ -392,11 +392,16 @@ export function Dashboard() {
                 <div className="flex flex-col items-center gap-4">
                   {/* Selected count */}
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                      {selectedIds.size}
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                        {selectedIds.size}
+                      </div>
+                      <div className="text-lg text-slate-600 dark:text-slate-400">
+                        of {filteredEvents.length}
+                      </div>
                     </div>
                     <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                      Selected
+                      selected
                     </div>
                   </div>
 
