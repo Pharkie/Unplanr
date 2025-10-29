@@ -287,7 +287,7 @@ export function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
         <div className="flex gap-6 items-start">
           {/* Content Area */}
-          <div className="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden mb-24 md:mb-0">
           {/* Filters Section */}
           <div className="p-6 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800">
             <div className="space-y-4">
@@ -420,13 +420,18 @@ export function Dashboard() {
         {/* Sticky Bottom Bar (Mobile) */}
         {events.length > 0 && selectedIds.size > 0 && (
           <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 shadow-xl p-4 z-20">
-            <div className="flex items-center justify-between max-w-7xl mx-auto">
-              <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {selectedIds.size}
+            <div className="flex items-center justify-end gap-4 max-w-7xl mx-auto">
+              <div className="flex flex-col gap-0.5 text-center">
+                <div className="flex items-center gap-2">
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                    {selectedIds.size}
+                  </div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    of {filteredEvents.length}
+                  </div>
                 </div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">
-                  Selected
+                <div className="text-xs text-slate-500 dark:text-slate-400">
+                  selected
                 </div>
               </div>
               <button

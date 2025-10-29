@@ -71,7 +71,7 @@ export function EventList({ events, selectedIds, onToggle, loading, searchQuery 
   };
 
   return (
-    <div className="divide-y divide-slate-200 dark:divide-slate-700 pb-24 md:pb-0">
+    <div className="divide-y divide-slate-200 dark:divide-slate-700">
       {sortedEvents.map((event) => (
         <div
           key={event.id}
