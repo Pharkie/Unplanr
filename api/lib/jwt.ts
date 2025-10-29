@@ -5,9 +5,6 @@ const JWT_SECRET = new TextEncoder().encode(
 );
 
 export interface UserData {
-  id: string;
-  email: string;
-  name: string;
   tokens: any;
 }
 
